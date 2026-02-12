@@ -20,10 +20,10 @@ install:
 - cmd: git submodule update --init --recursive
 
 before_build:
-- cmd: msbuild Confuser2.sln /t:Restore /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+- cmd: msbuild Confuser2.slnx /t:Restore /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
 
 build:
-  project: Confuser2.sln
+  project: Confuser2.slnx
   verbosity: minimal
 
 after_build:
