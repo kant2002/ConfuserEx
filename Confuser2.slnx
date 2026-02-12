@@ -1,0 +1,88 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path="appveyor.yml" />
+    <File Path="LICENSE.md" />
+    <File Path="README.md" />
+    <File Path="version.json" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="Tests/118_EnhancedStrongName.Test/118_EnhancedStrongName.Test.csproj" />
+    <Project Path="Tests/118_EnhancedStrongName/118_EnhancedStrongName.csproj" />
+    <Project Path="Tests/123_InheritCustomAttr.Test/123_InheritCustomAttr.Test.csproj" />
+    <Project Path="Tests/123_InheritCustomAttr/123_InheritCustomAttr.csproj" />
+    <Project Path="Tests/161_DynamicTypeRename.Test/161_DynamicTypeRename.Test.csproj" />
+    <Project Path="Tests/161_DynamicTypeRename/161_DynamicTypeRename.csproj" />
+    <Project Path="Tests/193_ConstantsInlining.Lib/193_ConstantsInlining.Lib.csproj" />
+    <Project Path="Tests/193_ConstantsInlining.Test/193_ConstantsInlining.Test.csproj" />
+    <Project Path="Tests/193_ConstantsInlining/193_ConstantsInlining.csproj" />
+    <Project Path="Tests/244_ClrProtection.Test/244_ClrProtection.Test.csproj" />
+    <Project Path="Tests/244_ClrProtection/244_ClrProtection.vcxproj">
+      <Platform Solution="*|Any CPU" Project="Win32" />
+    </Project>
+    <Project Path="Tests/252_ComplexInterfaceRenaming.Test/252_ComplexInterfaceRenaming.Test.csproj" />
+    <Project Path="Tests/252_ComplexInterfaceRenaming/252_ComplexInterfaceRenaming.csproj" />
+    <Project Path="Tests/270_EnumArrayConstantProtection.Test/270_EnumArrayConstantProtection.Test.csproj" />
+    <Project Path="Tests/270_EnumArrayConstantProtection/270_EnumArrayConstantProtection.csproj" />
+    <Project Path="Tests/306_ComplexClassStructureRename.Lib/306_ComplexClassStructureRename.Lib.csproj" />
+    <Project Path="Tests/306_ComplexClassStructureRename.Test/306_ComplexClassStructureRename.Test.csproj" />
+    <Project Path="Tests/306_ComplexClassStructureRename/306_ComplexClassStructureRename.csproj" />
+    <Project Path="Tests/342_InterfaceRenamingLoop.Test/342_InterfaceRenamingLoop.Test.csproj" />
+    <Project Path="Tests/342_InterfaceRenamingLoop/342_InterfaceRenamingLoop.csproj" />
+    <Project Path="Tests/345_RenameDynamicParameter.Test/345_RenameDynamicParameter.Test.csproj" />
+    <Project Path="Tests/345_RenameDynamicParameter/345_RenameDynamicParameter.csproj" />
+    <Project Path="Tests/389_MixedCultureCasing.Test/389_MixedCultureCasing.Test.csproj" />
+    <Project Path="Tests/389_MixedCultureCasing/389_MixedCultureCasing.csproj" />
+    <Project Path="Tests/421_NewtonsoftJsonSerialization.Test/421_NewtonsoftJsonSerialization.Test.csproj" />
+    <Project Path="Tests/421_NewtonsoftJsonSerialization/421_NewtonsoftJsonSerialization.csproj" />
+    <Project Path="Tests/470_ImplementationInBaseClass.Test/470_ImplementationInBaseClass.Test.csproj" />
+    <Project Path="Tests/470_ImplementationInBaseClass/470_ImplementationInBaseClass.csproj" />
+    <Project Path="Tests/78_SignatureMismatch.Test/78_SignatureMismatch.Test.csproj" />
+    <Project Path="Tests/78_SignatureMismatch/78_SignatureMismatch.csproj" />
+    <Project Path="Tests/AntiTamper.Test/AntiTamper.Test.csproj" />
+    <Project Path="Tests/AntiTamper/AntiTamper.csproj" />
+    <Project Path="Tests/BlockingReferences.Test/BlockingReferences.Test.csproj" />
+    <Project Path="Tests/BlockingReferences/BlockingReferences.csproj" />
+    <Project Path="Tests/BlockingReferencesHelper/BlockingReferencesHelper.csproj" />
+    <Project Path="Tests/CompressorWithResx.Test/CompressorWithResx.Test.csproj" />
+    <Project Path="Tests/CompressorWithResx/CompressorWithResx.csproj" />
+    <Project Path="Tests/Confuser.Core.Test/Confuser.Core.Test.csproj" />
+    <Project Path="Tests/Confuser.Renamer.Test/Confuser.Renamer.Test.csproj" />
+    <Project Path="Tests/Confuser.UnitTest/Confuser.UnitTest.csproj" />
+    <Project Path="Tests/IncorrectRedirectToGac.Test/IncorrectRedirectToGac.Test.csproj" />
+    <Project Path="Tests/IncorrectRedirectToGac/IncorrectRedirectToGac.csproj" />
+    <Project Path="Tests/MessageDeobfuscation.Test/MessageDeobfuscation.Test.csproj" />
+    <Project Path="Tests/MessageDeobfuscation/MessageDeobfuscation.csproj" />
+    <Project Path="Tests/MethodOverloading.Test/MethodOverloading.Test.csproj" />
+    <Project Path="Tests/MethodOverloading/MethodOverloading.csproj" />
+    <Project Path="Tests/ReferenceProxy.Test/ReferenceProxy.Test.csproj" />
+    <Project Path="Tests/ReferenceProxy/ReferenceProxy.csproj" />
+    <Project Path="Tests/SignatureMismatch2.Test/SignatureMismatch2.Test.csproj" />
+    <Project Path="Tests/SignatureMismatch2/SignatureMismatch2.csproj" />
+    <Project Path="Tests/SignatureMismatch2Helper/SignatureMismatch2Helper.csproj" />
+    <Project Path="Tests/TypeScrambler.Test/TypeScrambler.Test.csproj" />
+    <Project Path="Tests/TypeScrambler/TypeScrambler.csproj" />
+    <Project Path="Tests/VisualBasicRenamingResx.Test/VisualBasicRenamingResx.Test.csproj" />
+    <Project Path="Tests/VisualBasicRenamingResx/VisualBasicRenamingResx.vbproj" />
+    <Project Path="Tests/WinFormsRenaming.Test/WinFormsRenaming.Test.csproj" />
+    <Project Path="Tests/WinFormsRenaming/WinFormsRenaming.csproj" />
+    <Project Path="Tests/WpfRenaming.Test/WpfRenaming.Test.csproj" />
+    <Project Path="Tests/WpfRenaming/WpfRenaming.csproj" />
+  </Folder>
+  <Project Path="Confuser.CLI/Confuser.CLI.csproj" />
+  <Project Path="Confuser.Core/Confuser.Core.csproj" />
+  <Project Path="Confuser.DynCipher/Confuser.DynCipher.csproj" />
+  <Project Path="Confuser.MSBuild.Tasks/Confuser.MSBuild.Tasks.csproj" />
+  <Project Path="Confuser.Protections/Confuser.Protections.csproj" />
+  <Project Path="Confuser.Renamer/Confuser.Renamer.csproj" />
+  <Project Path="Confuser.Runtime/Confuser.Runtime.csproj">
+    <BuildDependency Project="Confuser.Core/Confuser.Core.csproj" />
+    <BuildType Solution="Debug|Any CPU" Project="Release" />
+  </Project>
+  <Project Path="ConfuserEx/ConfuserEx.csproj" />
+</Solution>
