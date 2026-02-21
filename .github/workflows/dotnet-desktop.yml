@@ -154,7 +154,7 @@ jobs:
           exit 1
         }
         Write-Host "Using: $vstestPath"
-        $testDlls = Get-ChildItem -Path "Tests" -Filter "*.Test.dll" -Recurse | Where-Object { $_.DirectoryName -match 'net461$' }
+        $testDlls = Get-ChildItem -Path "Tests" -Filter "*.Test.dll" -Recurse | Where-Object { $_.DirectoryName -match 'bin\\Release\\net461$' }
         Write-Host "Found $($testDlls.Count) test assemblies"
         $testDlls | ForEach-Object { Write-Host "  $($_.FullName)" }
         & $vstestPath $testDlls.FullName /Framework:.NETFramework,Version=v4.6.1
