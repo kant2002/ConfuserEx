@@ -137,7 +137,7 @@ jobs:
       uses: microsoft/setup-msbuild@v2
       
     - name: Build
-      run: build.ps1 -SolutionPath ${{ env.SolutionPath }} -Configuration ${{ env.Configuration }}
+      run: ./build.ps1 -SolutionPath ${{ env.SolutionPath }} -Configuration ${{ env.Configuration }}
       
     # Upload the package: https://github.com/marketplace/actions/upload-a-build-artifact
     - name: Upload build artifacts
