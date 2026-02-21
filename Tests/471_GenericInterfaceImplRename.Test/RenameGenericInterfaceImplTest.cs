@@ -21,7 +21,11 @@ namespace GenericInterfaceImplRename.Test {
 				"471_GenericInterfaceImplRename.exe",
 				new[] {
 					"ReturnExternal",
-					"Processed:ParamExternal"
+					"Processed:ParamExternal",
+					"Transformed:BothTest",
+					"First",
+					"Second",
+					"Fmt:MultiTest"
 				},
 				new SettingItem<Protection>("rename") {
 					{ "mode", renameMode },
