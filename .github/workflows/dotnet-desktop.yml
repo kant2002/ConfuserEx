@@ -142,8 +142,6 @@ jobs:
     - name: Run tests
       uses: microsoft-approved-actions/vstest@master
       with:
-        testAssembly: *.Test.dll
-        searchFolder: ./Tests/*/bin/Release/net*
         runInParallel: true
 
     # Upload the package: https://github.com/marketplace/actions/upload-a-build-artifact
