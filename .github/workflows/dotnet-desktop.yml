@@ -145,12 +145,12 @@ jobs:
     - name: Build
       run: msbuild ${{ env.SolutionPath }} /p:Configuration=${{ env.Configuration }} /p:Platform=x64 /v:m
 
+    - name: Setup VSTest
+      uses: Malcolmnixon/Setup-VSTest@v4
+
     - name: Run tests via vstest.console
-      uses: microsoft/vstest-action@v1.0.0
-      with:
-        testAssembly: '**\*.Test.dll'
-        searchFolder: Tests
-        otherConsoleOptions: '/Framework:.NETFramework,Version=v4.6.1'
+      run: vstest.console "**/bin/**/*Test.dll" /Framework:.NETFramework,Version=v4.6.1
+      working-directory: Tests
 
     # Upload the package: https://github.com/marketplace/actions/upload-a-build-artifact
     - name: Upload build artifacts
