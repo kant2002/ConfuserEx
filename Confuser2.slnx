@@ -42,6 +42,8 @@
     <Project Path="Tests/421_NewtonsoftJsonSerialization/421_NewtonsoftJsonSerialization.csproj" />
     <Project Path="Tests/470_ImplementationInBaseClass.Test/470_ImplementationInBaseClass.Test.csproj" />
     <Project Path="Tests/470_ImplementationInBaseClass/470_ImplementationInBaseClass.csproj" />
+    <Project Path="Tests/471_GenericInterfaceImplRename.Test/471_GenericInterfaceImplRename.Test.csproj" />
+    <Project Path="Tests/471_GenericInterfaceImplRename/471_GenericInterfaceImplRename.csproj" />
     <Project Path="Tests/78_SignatureMismatch.Test/78_SignatureMismatch.Test.csproj" />
     <Project Path="Tests/78_SignatureMismatch/78_SignatureMismatch.csproj" />
     <Project Path="Tests/AntiTamper.Test/AntiTamper.Test.csproj" />

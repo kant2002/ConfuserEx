@@ -18,9 +18,46 @@ namespace Confuser.Renamer.References {
 		public bool DelayRenaming(INameService service, IDnlibDef currentDef) => false;
 
 		public bool UpdateNameReference(ConfuserContext context, INameService service) {
-			if (UTF8String.Equals(memberRef.Name, memberDef.Name)) return false;
-			memberRef.Name = memberDef.Name;
-			return true;
+			var updated = false;
+
+			if (!UTF8String.Equals(memberRef.Name, memberDef.Name)) {
+				memberRef.Name = memberDef.Name;
+				updated = true;
+			}
+
+			if (memberDef is MethodDef md && md.DeclaringType.HasGenericParameters)
+				updated |= FixGenericInterfaceImplSignature(md);
+
+			return updated;
+		}
+
+		private bool FixGenericInterfaceImplSignature(MethodDef md) {
+			if (memberRef.MethodSig == null || md.MethodSig == null)
+				return false;
+
+			var updated = false;
+
+			if (ShouldSyncType(md.MethodSig.RetType, memberRef.MethodSig.RetType)) {
+				memberRef.MethodSig.RetType = md.MethodSig.RetType;
+				updated = true;
+			}
+
+			for (var i = 0; i < memberRef.MethodSig.Params.Count && i < md.MethodSig.Params.Count; i++) {
+				if (ShouldSyncType(md.MethodSig.Params[i], memberRef.MethodSig.Params[i])) {
+					memberRef.MethodSig.Params[i] = md.MethodSig.Params[i];
+					updated = true;
+				}
+			}
+
+			return updated;
+		}
+
+		private static bool ShouldSyncType(TypeSig defType, TypeSig refType) {
+			if (defType == null || refType == null)
+				return false;
+			if (!(defType is TypeDefOrRefSig) || !(refType is TypeDefOrRefSig))
+				return false;
+			return defType.FullName != refType.FullName;
 		}
 
 		public override string ToString() => ToString(null); 
