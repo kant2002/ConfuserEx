@@ -37,23 +37,27 @@ namespace Confuser.Renamer.References {
 
 			var updated = false;
 
-			if (md.MethodSig.RetType != null &&
-				memberRef.MethodSig.RetType != null &&
-				md.MethodSig.RetType.FullName != memberRef.MethodSig.RetType.FullName) {
+			if (ShouldSyncType(md.MethodSig.RetType, memberRef.MethodSig.RetType)) {
 				memberRef.MethodSig.RetType = md.MethodSig.RetType;
 				updated = true;
 			}
 
 			for (var i = 0; i < memberRef.MethodSig.Params.Count && i < md.MethodSig.Params.Count; i++) {
-				var refParamType = memberRef.MethodSig.Params[i];
-				var defParamType = md.MethodSig.Params[i];
-				if (refParamType.FullName != defParamType.FullName) {
-					memberRef.MethodSig.Params[i] = defParamType;
+				if (ShouldSyncType(md.MethodSig.Params[i], memberRef.MethodSig.Params[i])) {
+					memberRef.MethodSig.Params[i] = md.MethodSig.Params[i];
 					updated = true;
 				}
 			}
 
 			return updated;
+		}
+
+		private static bool ShouldSyncType(TypeSig defType, TypeSig refType) {
+			if (defType == null || refType == null)
+				return false;
+			if (!(defType is TypeDefOrRefSig) || !(refType is TypeDefOrRefSig))
+				return false;
+			return defType.FullName != refType.FullName;
 		}
 
 		public override string ToString() => ToString(null); 
