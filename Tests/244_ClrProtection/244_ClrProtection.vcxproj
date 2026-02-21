@@ -24,7 +24,7 @@
     <ProjectGuid>{73f11ee8-f565-479e-8366-bd74ee467ce8}</ProjectGuid>
     <RootNamespace>My244ClrProtection</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <PlatformToolset Condition="$(MSBuildVersion) &gt;= 17">v143</PlatformToolset>
     <PlatformToolset Condition="$(MSBuildVersion) &lt; 17">v142</PlatformToolset>
   </PropertyGroup>
