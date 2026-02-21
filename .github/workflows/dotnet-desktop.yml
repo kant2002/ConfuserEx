@@ -140,7 +140,7 @@ jobs:
       run: ./build.ps1 -SolutionPath ${{ env.SolutionPath }} -Configuration ${{ env.Configuration }}
       
     - name: Run tests
-      uses: microsoft/vstest-action@master
+      uses: microsoft/vstest-action@main
       with:
         runInParallel: true
 
