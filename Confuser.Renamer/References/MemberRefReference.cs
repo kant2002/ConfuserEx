@@ -18,9 +18,42 @@ namespace Confuser.Renamer.References {
 		public bool DelayRenaming(INameService service, IDnlibDef currentDef) => false;
 
 		public bool UpdateNameReference(ConfuserContext context, INameService service) {
-			if (UTF8String.Equals(memberRef.Name, memberDef.Name)) return false;
-			memberRef.Name = memberDef.Name;
-			return true;
+			var updated = false;
+
+			if (!UTF8String.Equals(memberRef.Name, memberDef.Name)) {
+				memberRef.Name = memberDef.Name;
+				updated = true;
+			}
+
+			if (memberDef is MethodDef md && md.DeclaringType.HasGenericParameters)
+				updated |= FixGenericInterfaceImplSignature(md);
+
+			return updated;
+		}
+
+		private bool FixGenericInterfaceImplSignature(MethodDef md) {
+			if (memberRef.MethodSig == null || md.MethodSig == null)
+				return false;
+
+			var updated = false;
+
+			if (md.MethodSig.RetType != null &&
+				memberRef.MethodSig.RetType != null &&
+				md.MethodSig.RetType.FullName != memberRef.MethodSig.RetType.FullName) {
+				memberRef.MethodSig.RetType = md.MethodSig.RetType;
+				updated = true;
+			}
+
+			for (var i = 0; i < memberRef.MethodSig.Params.Count && i < md.MethodSig.Params.Count; i++) {
+				var refParamType = memberRef.MethodSig.Params[i];
+				var defParamType = md.MethodSig.Params[i];
+				if (refParamType.FullName != defParamType.FullName) {
+					memberRef.MethodSig.Params[i] = defParamType;
+					updated = true;
+				}
+			}
+
+			return updated;
 		}
 
 		public override string ToString() => ToString(null); 
