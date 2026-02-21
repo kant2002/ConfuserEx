@@ -146,18 +146,11 @@ jobs:
       run: msbuild ${{ env.SolutionPath }} /p:Configuration=${{ env.Configuration }} /p:Platform=x64 /v:m
 
     - name: Run tests via vstest.console
-      shell: pwsh
-      run: |
-        $vstestPath = (& "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -find "Common7\IDE\Extensions\TestPlatform\vstest.console.exe") | Select-Object -First 1
-        if (-not $vstestPath) {
-          Write-Error "vstest.console.exe not found"
-          exit 1
-        }
-        Write-Host "Using: $vstestPath"
-        $testDlls = Get-ChildItem -Path "Tests" -Filter "*.Test.dll" -Recurse | Where-Object { $_.DirectoryName -match 'bin\\Release\\net461$' }
-        Write-Host "Found $($testDlls.Count) test assemblies"
-        $testDlls | ForEach-Object { Write-Host "  $($_.FullName)" }
-        & $vstestPath $testDlls.FullName /Framework:.NETFramework,Version=v4.6.1
+      uses: microsoft/vstest-action@v1.0.0
+      with:
+        testAssembly: '**\*.Test.dll'
+        searchFolder: Tests
+        otherConsoleOptions: '/Framework:.NETFramework,Version=v4.6.1'
 
     # Upload the package: https://github.com/marketplace/actions/upload-a-build-artifact
     - name: Upload build artifacts
