@@ -139,6 +139,13 @@ jobs:
     - name: Build
       run: ./build.ps1 -SolutionPath ${{ env.SolutionPath }} -Configuration ${{ env.Configuration }}
       
+    - name: Run tests
+      uses: microsoft-approved-actions/vstest@master
+      with:
+        testAssembly: *.Test.dll
+        searchFolder: ./Tests/*/bin/Release/net*
+        runInParallel: true
+
     # Upload the package: https://github.com/marketplace/actions/upload-a-build-artifact
     - name: Upload build artifacts
       uses: actions/upload-artifact@v4
