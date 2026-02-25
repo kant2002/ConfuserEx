@@ -77,17 +77,6 @@ jobs:
             echo "file_exists=false" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
         }
 
-    - name: Check if exists.NET 3.5 installer
-      id: exists_dotnetfx35
-      shell: pwsh # Use PowerShell for Windows
-      run: |
-        $filePath = "public/dotnetfx35.exe"
-        if (Test-Path $filePath) {
-            echo "file_exists=true" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
-        } else {
-            echo "file_exists=false" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
-        }
-
     - name: Download .NET 4.6.1 targeting pack
       uses: suisei-cn/actions-download-file@818d6b7dc8fe73f2f924b6241f2b1134ca1377d9 
       with:
@@ -100,13 +89,6 @@ jobs:
 #      with:
 #          url: "https://download.microsoft.com/download/e/e/c/eec79116-8305-4bd0-aa83-27610987eec6/NDP462-DevPack-KB3151934-ENU.exe"
 #          target: public/
-
-    - name: Download .NET 3.5 targeting pack
-      uses: suisei-cn/actions-download-file@818d6b7dc8fe73f2f924b6241f2b1134ca1377d9 
-      with:
-          url: "https://download.visualstudio.microsoft.com/download/pr/b635098a-2d1d-4142-bef6-d237545123cb/2651b87007440a15209cac29634a4e45/dotnetfx35.exe"
-          target: public/
-      if: ${{ steps.exists_dotnetfx35.outputs.file_exists == 'false' }}
       
     - name: Install targeting pack .NET 4.6.1
       shell: cmd
@@ -117,11 +99,6 @@ jobs:
  #     shell: cmd
  #     working-directory: public
  #     run: NDP462-DevPack-KB3151934-ENU.exe /q
-
-    - name: Install targeting pack .NET 3.5
-      shell: cmd
-      working-directory: public
-      run: dotnetfx35.exe /q
 
     # Install the .NET Core workload
     - name: Install .NET Core
