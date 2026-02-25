@@ -56,39 +56,6 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-nuget-
 
-    - name: Cache .NET installers
-      uses: actions/cache@v4
-      with:
-        path: |
-          public/
-        key: ${{ runner.os }}-dotnet
-        restore-keys: |
-          ${{ runner.os }}-dotnetdevpack-
-
-
-    - name: Check if exists .NET 4.7.2 installer
-      id: exists_NDP472_DevPack
-      shell: pwsh # Use PowerShell for Windows
-      run: |
-        $filePath = "public/NDP472-DevPack-ENU.exe"
-        if (Test-Path $filePath) {
-            echo "file_exists=true" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
-        } else {
-            echo "file_exists=false" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
-        }
-
-    - name: Download .NET 4.7.2 targeting pack
-      uses: suisei-cn/actions-download-file@818d6b7dc8fe73f2f924b6241f2b1134ca1377d9
-      with:
-          url: "https://download.microsoft.com/download/4/b/2/4b2c08b5-2e00-4d73-a5ab-23e27c5c9c86/NDP472-DevPack-ENU.exe"
-          target: public/
-      if: ${{ steps.exists_NDP472_DevPack.outputs.file_exists == 'false' }}
-
-    - name: Install targeting pack .NET 4.7.2
-      shell: cmd
-      working-directory: public
-      run: NDP472-DevPack-ENU.exe /q
-
     # Install the .NET Core workload
     - name: Install .NET Core
       uses: actions/setup-dotnet@v4
