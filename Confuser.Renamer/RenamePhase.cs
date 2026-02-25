@@ -40,20 +40,31 @@ namespace Confuser.Renamer {
 							param.Name = null;
 					}
 
-					if (parameters.GetParameter(context, method, "renPdb", false) && method.HasBody) {
-						foreach (var instr in method.Body.Instructions) {
-							if (instr.SequencePoint != null && !pdbDocs.Contains(instr.SequencePoint.Document.Url)) {
-								instr.SequencePoint.Document.Url = service.ObfuscateName(instr.SequencePoint.Document.Url, mode);
-								pdbDocs.Add(instr.SequencePoint.Document.Url);
+					if (method.HasBody) {
+						if (parameters.GetParameter(context, method, "renPdb", false)) {
+							foreach (var instr in method.Body.Instructions) {
+								if (instr.SequencePoint != null && !pdbDocs.Contains(instr.SequencePoint.Document.Url)) {
+									instr.SequencePoint.Document.Url = service.ObfuscateName(instr.SequencePoint.Document.Url, mode);
+									pdbDocs.Add(instr.SequencePoint.Document.Url);
+								}
+							}
+							foreach (var local in method.Body.Variables) {
+								if (!string.IsNullOrEmpty(local.Name))
+									local.Name = service.ObfuscateName(local.Name, mode);
+							}
+
+							if (method.Body.HasPdbMethod)
+								method.Body.PdbMethod.Scope = new PdbScope();
+						} else {
+							// Earlier ConfuserEx remove location of the instructions, probably due ot bug
+							// in the dnlib. We leave this behaviour since it make sence to hide location of the code.
+							// If we want renamingof paths, we should explicitly opt-in using renPdb
+							foreach (var instr in method.Body.Instructions) {
+								if (instr.SequencePoint != null && !pdbDocs.Contains(instr.SequencePoint.Document.Url)) {
+									instr.SequencePoint.Document = null;
+								}
 							}
 						}
-						foreach (var local in method.Body.Variables) {
-							if (!string.IsNullOrEmpty(local.Name))
-								local.Name = service.ObfuscateName(local.Name, mode);
-						}
-
-						if (method.Body.HasPdbMethod)
-							method.Body.PdbMethod.Scope = new PdbScope();
 					}
 				}
 

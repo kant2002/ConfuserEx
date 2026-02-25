@@ -11,7 +11,7 @@ It is the successor of [Confuser][confuser] project.
 
 ## Features
 
-* Supports .NET Framework 2.0/3.0/3.5/4.0/4.5/4.6/4.7/4.8
+* Supports .NET Framework 4.7/4.8
 * Symbol renaming (Support WPF/BAML)
 * Protection against debuggers/profilers
 * Protection against memory dumping

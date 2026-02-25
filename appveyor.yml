@@ -28,18 +28,18 @@ build:
 
 after_build:
 - pwsh: >-
-    Push-Location Confuser.CLI\bin\$env:CONFIGURATION\net461;
+    Push-Location Confuser.CLI\bin\$env:CONFIGURATION\net472;
     . 7z a ..\..\..\..\ConfuserEx-CLI.zip "-xr!*.pdb" "-xr!*.xml";
     Pop-Location
 - pwsh: >-
-    Push-Location ConfuserEx\bin\$env:CONFIGURATION\net461;
+    Push-Location ConfuserEx\bin\$env:CONFIGURATION\net472;
     . 7z a ..\..\..\..\ConfuserEx-GUI.zip "-xr!*.pdb" "-xr!*.xml";
     Pop-Location
 - pwsh: >-
-    Push-Location Confuser.CLI\bin\$env:CONFIGURATION\net461;
+    Push-Location Confuser.CLI\bin\$env:CONFIGURATION\net472;
     . 7z a ..\..\..\..\ConfuserEx.zip "-xr!*.pdb" "-xr!*.xml";
     Pop-Location;
-    Push-Location ConfuserEx\bin\$env:CONFIGURATION\net461;
+    Push-Location ConfuserEx\bin\$env:CONFIGURATION\net472;
     . 7z a ..\..\..\..\ConfuserEx.zip "-xr!*.pdb" "-xr!*.xml" -y;
     Pop-Location
 

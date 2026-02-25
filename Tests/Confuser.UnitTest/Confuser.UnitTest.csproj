@@ -1,9 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <Import Project="..\ConfuserEx.Common.props" Condition="Exists('..\ConfuserEx.Common.props')" />
 
   <PropertyGroup Label="Assembly Settings">
-    <TargetFramework>net461</TargetFramework>
+    <TargetFramework>net472</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup Label="Nuget Dependencies">
