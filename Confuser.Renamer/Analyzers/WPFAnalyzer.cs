@@ -57,7 +57,7 @@ namespace Confuser.Renamer.Analyzers {
 
 			foreach (var res in wpfResInfo.Values)
 				foreach (var doc in res.Values) {
-					var decodedName = HttpUtility.UrlDecode(doc.DocumentName);
+					var decodedName = WebUtility.UrlDecode(doc.DocumentName);
 					var encodedName = doc.DocumentName;
 					if (bamlRefs.TryGetValue(decodedName, out var references)) {
 						var decodedDirectory = decodedName.Substring(0, decodedName.LastIndexOf('/') + 1);

@@ -4,7 +4,7 @@
   <Import Project="..\ConfuserEx.Common.props" Condition="Exists('..\ConfuserEx.Common.props')" />
 
   <PropertyGroup Label="Assembly Settings">
-    <TargetFrameworks>net461;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net472;netstandard2.0</TargetFrameworks>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>..\ConfuserEx.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
@@ -32,7 +32,7 @@
     <ProjectReference Include="..\Confuser.Core\Confuser.Core.csproj" PrivateAssets="all" />
     <ProjectReference Include="..\Confuser.Protections\Confuser.Protections.csproj" PrivateAssets="all" />
     <ProjectReference Include="..\Confuser.Renamer\Confuser.Renamer.csproj" PrivateAssets="all" />
-    <ProjectReference Include="..\Confuser.Runtime\Confuser.Runtime.csproj" Condition="'$(TargetFramework)' == 'net461'" PrivateAssets="all" />
+    <ProjectReference Include="..\Confuser.Runtime\Confuser.Runtime.csproj" Condition="'$(TargetFramework)' == 'net472'" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>
@@ -48,10 +48,10 @@
 
   <Target Name="IncludeConfuserDependencyFiles" DependsOnTargets="$(IncludeConfuserDependencyFilesDependsOn)" />
 
-  <Target Name="IncludeConfuserDependencyFilesFramework" Condition="'$(TargetFramework)' == 'net461'">
+  <Target Name="IncludeConfuserDependencyFilesFramework" Condition="'$(TargetFramework)' == 'net472'">
     <ItemGroup>
-      <ConfuserNetFrameworkDependencies Include="$(BaseOutputPath)\$(Configuration)\net461\*.dll" />
-      <ConfuserNetFrameworkDependencies Include="$(BaseOutputPath)\$(Configuration)\net461\*.pdb" />
+      <ConfuserNetFrameworkDependencies Include="$(BaseOutputPath)\$(Configuration)\net472\*.dll" />
+      <ConfuserNetFrameworkDependencies Include="$(BaseOutputPath)\$(Configuration)\net472\*.pdb" />
     </ItemGroup>
     <CreateItem Include="@(ConfuserNetFrameworkDependencies)" AdditionalMetadata="PackagePath=netframework">
       <Output TaskParameter="Include" ItemName="TfmSpecificPackageFile" />

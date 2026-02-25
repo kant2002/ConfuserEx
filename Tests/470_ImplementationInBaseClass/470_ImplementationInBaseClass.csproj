@@ -2,9 +2,8 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net461</TargetFramework>
+    <TargetFramework>net472</TargetFramework>
     <RootNamespace>ImplementationInBaseClass</RootNamespace>
-    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
 
 </Project>

@@ -7,6 +7,8 @@
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
     <File Path="appveyor.yml" />
+    <File Path="ConfuserEx.Common.props" />
+    <File Path="ConfuserEx.Common.targets" />
     <File Path="LICENSE.md" />
     <File Path="README.md" />
     <File Path="version.json" />
@@ -22,7 +24,7 @@
     <Project Path="Tests/193_ConstantsInlining.Test/193_ConstantsInlining.Test.csproj" />
     <Project Path="Tests/193_ConstantsInlining/193_ConstantsInlining.csproj" />
     <Project Path="Tests/244_ClrProtection.Test/244_ClrProtection.Test.csproj" />
-    <Project Path="Tests/244_ClrProtection/244_ClrProtection.vcxproj">
+    <Project Path="Tests/244_ClrProtection/244_ClrProtection.vcxproj" Id="73f11ee8-f565-479e-8366-bd74ee467ce8">
       <Platform Solution="*|Any CPU" Project="Win32" />
     </Project>
     <Project Path="Tests/252_ComplexInterfaceRenaming.Test/252_ComplexInterfaceRenaming.Test.csproj" />
