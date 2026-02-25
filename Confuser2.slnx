@@ -6,6 +6,7 @@
   </Configurations>
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
+    <File Path=".github/workflows/dotnet-desktop.yml" />
     <File Path="appveyor.yml" />
     <File Path="ConfuserEx.Common.props" />
     <File Path="ConfuserEx.Common.targets" />
