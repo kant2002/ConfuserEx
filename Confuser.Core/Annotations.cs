@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+#if NET8_0_OR_GREATER
+using System.Diagnostics;
+#endif
 using System.Linq;
 
 namespace Confuser.Core {
