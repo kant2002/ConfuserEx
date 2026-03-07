@@ -6,7 +6,6 @@ using Confuser.Core;
 using Confuser.Core.Project;
 using Confuser.UnitTest;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace MethodOverloading.Test {
 	public class MethodOverloadingTest : TestBase {

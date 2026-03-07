@@ -7,7 +7,6 @@ using Confuser.Core.Project;
 using Confuser.Renamer;
 using Confuser.UnitTest;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace MessageDeobfuscation.Test {
 	public class MessageDeobfuscationTest : TestBase {

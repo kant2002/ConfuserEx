@@ -5,7 +5,6 @@ using Confuser.Core;
 using Confuser.Core.Project;
 using Confuser.UnitTest;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace CompressorWithResx.Test {
 	public sealed class CompressTest : TestBase {

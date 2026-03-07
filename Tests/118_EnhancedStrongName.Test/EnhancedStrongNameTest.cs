@@ -3,7 +3,6 @@ using System.IO;
 using System.Threading.Tasks;
 using Confuser.UnitTest;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace EnhancedStrongName.Test {
 	public class EnhancedStrongNameTest : TestBase {

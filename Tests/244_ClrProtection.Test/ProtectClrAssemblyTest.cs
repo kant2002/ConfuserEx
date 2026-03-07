@@ -4,7 +4,6 @@ using Confuser.Core;
 using Confuser.Core.Project;
 using Confuser.UnitTest;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace ClrProtection.Test {
 	public class ProtectClrAssemblyTest : TestBase {

@@ -11,10 +11,12 @@ namespace Confuser.Renamer.Test {
 				TryToLoadPdbFromDisk = false
 			};
 
+			// Preload assembly dependencies to cache.
             asmResolver.AddToCache(ModuleDefMD.Load(typeof(Mock).Module, options));
             asmResolver.AddToCache(ModuleDefMD.Load(typeof(FactAttribute).Module, options));
+            asmResolver.AddToCache(ModuleDefMD.Load(typeof(Xunit.Runner.Common.AppVeyorReporter).Module, options));
 
-            var thisModule = ModuleDefMD.Load(typeof(VTableTest).Module, options);
+			var thisModule = ModuleDefMD.Load(typeof(VTableTest).Module, options);
             asmResolver.AddToCache(thisModule);
 
 			return thisModule;

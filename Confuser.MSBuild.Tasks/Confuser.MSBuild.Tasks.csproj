@@ -56,12 +56,12 @@
     </CreateItem>
   </Target>
 
-  <Target Name="IncludeConfuserDependencyFilesStandard" Condition="'$(TargetFramework)' == 'netstandard2.0'">
+  <Target Name="IncludeConfuserDependencyFilesStandard" Condition="'$(TargetFramework)' == 'net8.0'">
     <ItemGroup>
-      <ConfuserNetStandardDependencies Include="$(BaseOutputPath)\$(Configuration)\netstandard2.0\*.dll" />
-      <ConfuserNetStandardDependencies Include="$(BaseOutputPath)\$(Configuration)\netstandard2.0\*.pdb" />
+      <ConfuserNetDependencies Include="$(BaseOutputPath)\$(Configuration)\net8.0\*.dll" />
+      <ConfuserNetDependencies Include="$(BaseOutputPath)\$(Configuration)\net8.0\*.pdb" />
     </ItemGroup>
-    <CreateItem Include="@(ConfuserNetStandardDependencies)" AdditionalMetadata="PackagePath=netstandard">
+    <CreateItem Include="@(ConfuserNetStandardDependencies)" AdditionalMetadata="PackagePath=net">
       <Output TaskParameter="Include" ItemName="TfmSpecificPackageFile" />
     </CreateItem>
   </Target>

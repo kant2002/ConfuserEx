@@ -4,7 +4,6 @@ using Confuser.Core;
 using Confuser.Core.Project;
 using Confuser.UnitTest;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace EnumArrayConstantProtection.Test {
 	public class ConstantProtectionTest : TestBase {

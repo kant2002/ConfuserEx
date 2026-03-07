@@ -3,7 +3,6 @@ using Confuser.Core;
 using Confuser.Core.Project;
 using Confuser.UnitTest;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace SignatureMismatch2.Test {
 	public class SignatureMismatch2Test : TestBase {

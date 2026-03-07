@@ -1,11 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net472</TargetFramework>
+      <TargetFramework>net472</TargetFramework>
+      <OutputType>Exe</OutputType>
     </PropertyGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\BlockingReferences\BlockingReferences.csproj" />
       <ProjectReference Include="..\Confuser.UnitTest\Confuser.UnitTest.csproj" />
     </ItemGroup>
+
+  <ItemGroup Label="Nuget Dependencies">
+    <PackageReference Include="xunit.v3" Version="3.2.2" />
+  </ItemGroup>
 </Project>

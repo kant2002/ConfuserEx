@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Confuser.UnitTest;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Confuser.Renamer.Test {
 	public class VTableTest {

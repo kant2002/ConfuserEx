@@ -5,7 +5,6 @@ using Confuser.Core.Project;
 using Confuser.Renamer;
 using Confuser.UnitTest;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace ImplementationInBaseClass.Test
 {

@@ -4,11 +4,16 @@
     <TargetFramework>net472</TargetFramework>
     <IsPackable>false</IsPackable>
     <RootNamespace>MessageDeobfuscation.Test</RootNamespace>
+    <OutputType>Exe</OutputType>
   </PropertyGroup>
   
   <ItemGroup>
     <ProjectReference Include="..\Confuser.UnitTest\Confuser.UnitTest.csproj" />
     <ProjectReference Include="..\MessageDeobfuscation\MessageDeobfuscation.csproj" />
     <ProjectReference Include="..\MethodOverloading\MethodOverloading.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Label="Nuget Dependencies">
+    <PackageReference Include="xunit.v3" Version="3.2.2" />
   </ItemGroup>
 </Project>

@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Confuser.Core;
 using Confuser.Core.Project;
 using Xunit;
-using Xunit.Abstractions;
 using Xunit.Sdk;
 
 namespace Confuser.UnitTest {

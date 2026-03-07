@@ -4,11 +4,16 @@
     <TargetFramework>net472</TargetFramework>
     <RootNamespace>ComplexInterfaceRenaming.Test</RootNamespace>
     <IsPackable>false</IsPackable>
+    <OutputType>Exe</OutputType>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Confuser.UnitTest\Confuser.UnitTest.csproj" />
     <ProjectReference Include="..\252_ComplexInterfaceRenaming\252_ComplexInterfaceRenaming.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Label="Nuget Dependencies">
+    <PackageReference Include="xunit.v3" Version="3.2.2" />
   </ItemGroup>
 
 </Project>

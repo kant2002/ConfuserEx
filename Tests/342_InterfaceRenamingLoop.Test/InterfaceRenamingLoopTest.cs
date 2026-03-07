@@ -6,7 +6,6 @@ using Confuser.Core.Project;
 using Confuser.Renamer;
 using Confuser.UnitTest;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace InterfaceRenamingLoop.Test {
 	public class InterfaceRenamingLoopTest : TestBase {

@@ -1,6 +1,6 @@
 ﻿using System;
 using Confuser.Core;
-using Xunit.Abstractions;
+using Xunit;
 
 namespace Confuser.UnitTest {
 	public sealed class XunitLogger : ILogger {

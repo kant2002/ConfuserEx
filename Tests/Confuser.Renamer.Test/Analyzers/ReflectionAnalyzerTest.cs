@@ -8,7 +8,6 @@ using Confuser.UnitTest;
 using dnlib.DotNet;
 using Moq;
 using Xunit;
-using Xunit.Abstractions;
 using ILogger = Confuser.Core.ILogger;
 
 namespace Confuser.Renamer.Test.Analyzers {

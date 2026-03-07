@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
     <IsPackable>False</IsPackable>
+    <OutputType>Exe</OutputType>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,5 +11,8 @@
     <ProjectReference Include="..\ReferenceProxy\ReferenceProxy.csproj" />
   </ItemGroup>
 
+  <ItemGroup Label="Nuget Dependencies">
+    <PackageReference Include="xunit.v3" Version="3.2.2" />
+  </ItemGroup>
 
 </Project>
