@@ -5,6 +5,7 @@
   <PropertyGroup Label="Assembly Settings">
     <TargetFrameworks>net472;net8.0</TargetFrameworks>
     <IsTestProject>false</IsTestProject>
+    <AssemblyName>ConfuserUnitBase</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup Label="Nuget Dependencies">
