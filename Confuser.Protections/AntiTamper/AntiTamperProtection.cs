@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if NET8_0_OR_GREATER
+using System.Diagnostics;
+#endif
 using System.Linq;
 using Confuser.Core;
 using Confuser.Protections.AntiTamper;

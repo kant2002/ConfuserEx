@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
+#if NET8_0_OR_GREATER
+using System.Diagnostics;
+#endif
 using System.Linq;
 using dnlib.DotNet;
 using dnlib.DotNet.Emit;
