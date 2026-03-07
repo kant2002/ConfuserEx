@@ -84,7 +84,6 @@ jobs:
 
     - name: Run tests via vstest.console
       run: vstest.console "artifacts/bin/*/*/*Test.dll" /Framework:.NETFramework,Version=v4.7.2
-      working-directory: Tests
 
     # Upload the package: https://github.com/marketplace/actions/upload-a-build-artifact
     - name: Upload build artifacts
