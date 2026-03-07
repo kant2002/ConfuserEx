@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if NET8_0_OR_GREATER
+using System.Diagnostics;
+#endif
 using Confuser.Core;
 using Confuser.Renamer.References;
 using dnlib.DotNet;

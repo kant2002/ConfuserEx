@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if NETFRAMEWORK
+using System;
 
 namespace Confuser.Core {
 	/// <summary>
@@ -12,3 +13,4 @@ namespace Confuser.Core {
 			base("Unreachable code reached.") { }
 	}
 }
+#endif
