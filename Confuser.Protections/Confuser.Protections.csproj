@@ -25,13 +25,18 @@
     <RuntimeProjectFramework Include="$(TargetFrameworks)" />
   </ItemGroup>
 
-  <Target Name="CollectRuntimeOutputs" AfterTargets="Build">
+  <Target Name="BuildRuntimeProject" BeforeTargets="Build">
+
+    <MSBuild Projects="$(RuntimeProject)" Targets="Build" 
+             Properties="Configuration=$(Configuration);TargetFramework=%(RuntimeProjectFramework.Identity)" 
+             BuildInParallel="true" />
+
+  </Target>
+
+  <Target Name="CollectRuntimeOutputs" DependsOnTargets="BuildRuntimeProject" AfterTargets="Build">
 
     <!-- Query each TFM output -->
-    <MSBuild Projects="$(RuntimeProject)"
-             Targets="GetTargetPath"
-             Properties="Configuration=$(Configuration);TargetFramework=%(RuntimeProjectFramework.Identity)"
-             BuildInParallel="true">
+    <MSBuild Projects="$(RuntimeProject)" Targets="GetTargetPath" Properties="Configuration=$(Configuration);TargetFramework=%(RuntimeProjectFramework.Identity)" BuildInParallel="true">
 
       <Output TaskParameter="TargetOutputs" ItemName="RuntimeOutputs" />
 
@@ -40,18 +45,12 @@
       <RuntimeOutputsNetFramework Include="@(RuntimeOutputs)" Condition="'%(TargetFrameworkVersion)' == '4.7.2'" />
       <RuntimeOutputsNet Include="@(RuntimeOutputs)" Condition="'%(TargetFrameworkVersion)' == '8.0'" />
     </ItemGroup>
-    <Copy
-        SourceFiles="@(RuntimeOutputsNetFramework)"
-        DestinationFolder="$(OutDir)runtime\net472\" />
-    <Copy
-        SourceFiles="@(RuntimeOutputsNet)"
-        DestinationFolder="$(OutDir)runtime\net8.0\" />
+    <Copy SourceFiles="@(RuntimeOutputsNetFramework)" DestinationFolder="$(OutDir)runtime\net472\" />
+    <Copy SourceFiles="@(RuntimeOutputsNet)" DestinationFolder="$(OutDir)runtime\net8.0\" />
 
   </Target>
 
-  <Target Name="RegisterExtraFiles"
-          DependsOnTargets="CollectRuntimeOutputs"
-        BeforeTargets="GetCopyToOutputDirectoryItems">
+  <Target Name="RegisterExtraFiles" DependsOnTargets="CollectRuntimeOutputs" BeforeTargets="GetCopyToOutputDirectoryItems">
 
     <ItemGroup>
       <ContentWithTargetPath Include="@(RuntimeOutputsNet)">
