@@ -16,6 +16,7 @@
   <ItemGroup Label="Project Dependencies">
     <ProjectReference Include="..\Confuser.DynCipher\Confuser.DynCipher.csproj" />
     <ProjectReference Include="..\Confuser.Renamer\Confuser.Renamer.csproj" />
+    <ProjectReference Include="..\Confuser.Runtime\Confuser.Runtime.csproj" ReferenceOutputAssembly="false" />  
   </ItemGroup>
 
   <Import Project="..\ConfuserEx.Common.targets" Condition="Exists('..\ConfuserEx.Common.targets')" />
