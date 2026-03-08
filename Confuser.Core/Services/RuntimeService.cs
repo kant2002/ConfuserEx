@@ -16,7 +16,7 @@ namespace Confuser.Core.Services {
 		}
 
 		private void LoadConfuserRuntimeModule() {
-			const string runtimeDllName = "Confuser.Runtime.dll";
+			const string runtimeDllName = "runtime\\net472\\Confuser.Runtime.dll";
 
 			var module = typeof(RuntimeService).Assembly.ManifestModule;
 			string rtPath = runtimeDllName;
