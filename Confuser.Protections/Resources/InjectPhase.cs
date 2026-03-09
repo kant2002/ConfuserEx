@@ -138,6 +138,12 @@ namespace Confuser.Protections.Resources {
 				repl.Add(Instruction.Create(OpCodes.Ldtoken, moduleCtx.DataField));
 				repl.Add(Instruction.Create(OpCodes.Call, moduleCtx.Module.Import(
 					typeof(RuntimeHelpers).GetMethod("InitializeArray"))));
+				var runtimeHelpers = moduleCtx.Module.CorLibTypes.GetTypeRef("System.Runtime.CompilerServices", "RuntimeHelpers");
+				var arrayTypeRef = moduleCtx.Module.CorLibTypes.GetTypeRef("System", "Array");
+				var runtimeFieldHandle = moduleCtx.Module.CorLibTypes.GetTypeRef("System", "RuntimeFieldHandle");
+				var initialzeArray = new MemberRefUser(moduleCtx.Module, "InitializeArray",
+						MethodSig.CreateStatic(moduleCtx.Module.CorLibTypes.Void, arrayTypeRef.ToTypeSig(), runtimeFieldHandle.ToTypeSig()), runtimeHelpers);
+				repl.Add(Instruction.Create(OpCodes.Call, moduleCtx.Module.Import(initialzeArray)));
 				return repl.ToArray();
 			});
 			moduleCtx.Context.Registry.GetService<IConstantService>().ExcludeMethod(moduleCtx.Context, moduleCtx.InitMethod);
