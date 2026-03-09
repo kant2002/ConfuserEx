@@ -196,8 +196,12 @@ namespace Confuser.Protections {
 				repl.AddRange(arg);
 				repl.Add(Instruction.Create(OpCodes.Dup));
 				repl.Add(Instruction.Create(OpCodes.Ldtoken, dataField));
-				repl.Add(Instruction.Create(OpCodes.Call, stubModule.Import(
-					typeof(RuntimeHelpers).GetMethod("InitializeArray"))));
+				var runtimeHelpers = stubModule.CorLibTypes.GetTypeRef("System.Runtime.CompilerServices", "RuntimeHelpers");
+				var arrayTypeRef = stubModule.CorLibTypes.GetTypeRef("System", "Array");
+				var runtimeFieldHandle = stubModule.CorLibTypes.GetTypeRef("System", "RuntimeFieldHandle");
+				var initialzeArray = new MemberRefUser(stubModule, "InitializeArray",
+					MethodSig.CreateStatic(stubModule.CorLibTypes.Void, arrayTypeRef.ToTypeSig(), runtimeFieldHandle.ToTypeSig()), runtimeHelpers);
+				repl.Add(Instruction.Create(OpCodes.Call, stubModule.Import(initialzeArray)));
 				return repl.ToArray();
 			});
 		}
