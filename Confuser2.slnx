@@ -85,7 +85,6 @@
   <Project Path="Confuser.Renamer/Confuser.Renamer.csproj" />
   <Project Path="Confuser.Runtime/Confuser.Runtime.csproj">
     <BuildDependency Project="Confuser.Core/Confuser.Core.csproj" />
-    <BuildType Solution="Debug|Any CPU" Project="Release" />
   </Project>
   <Project Path="ConfuserEx/ConfuserEx.csproj" />
 </Solution>
