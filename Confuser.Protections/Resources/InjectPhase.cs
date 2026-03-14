@@ -136,8 +136,6 @@ namespace Confuser.Protections.Resources {
 				repl.AddRange(arg);
 				repl.Add(Instruction.Create(OpCodes.Dup));
 				repl.Add(Instruction.Create(OpCodes.Ldtoken, moduleCtx.DataField));
-				repl.Add(Instruction.Create(OpCodes.Call, moduleCtx.Module.Import(
-					typeof(RuntimeHelpers).GetMethod("InitializeArray"))));
 				var runtimeHelpers = moduleCtx.Module.CorLibTypes.GetTypeRef("System.Runtime.CompilerServices", "RuntimeHelpers");
 				var arrayTypeRef = moduleCtx.Module.CorLibTypes.GetTypeRef("System", "Array");
 				var runtimeFieldHandle = moduleCtx.Module.CorLibTypes.GetTypeRef("System", "RuntimeFieldHandle");
