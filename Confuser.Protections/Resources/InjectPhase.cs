@@ -140,7 +140,7 @@ namespace Confuser.Protections.Resources {
 				var arrayTypeRef = moduleCtx.Module.CorLibTypes.GetTypeRef("System", "Array");
 				var runtimeFieldHandle = moduleCtx.Module.CorLibTypes.GetTypeRef("System", "RuntimeFieldHandle");
 				var initialzeArray = new MemberRefUser(moduleCtx.Module, "InitializeArray",
-						MethodSig.CreateStatic(moduleCtx.Module.CorLibTypes.Void, arrayTypeRef.ToTypeSig(), runtimeFieldHandle.ToTypeSig()), runtimeHelpers);
+						MethodSig.CreateStatic(moduleCtx.Module.CorLibTypes.Void, arrayTypeRef.ToTypeSig(), new ValueTypeSig(runtimeFieldHandle)), runtimeHelpers);
 				repl.Add(Instruction.Create(OpCodes.Call, moduleCtx.Module.Import(initialzeArray)));
 				return repl.ToArray();
 			});

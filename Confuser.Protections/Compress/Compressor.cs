@@ -200,7 +200,7 @@ namespace Confuser.Protections {
 				var arrayTypeRef = stubModule.CorLibTypes.GetTypeRef("System", "Array");
 				var runtimeFieldHandle = stubModule.CorLibTypes.GetTypeRef("System", "RuntimeFieldHandle");
 				var initialzeArray = new MemberRefUser(stubModule, "InitializeArray",
-					MethodSig.CreateStatic(stubModule.CorLibTypes.Void, arrayTypeRef.ToTypeSig(), runtimeFieldHandle.ToTypeSig()), runtimeHelpers);
+					MethodSig.CreateStatic(stubModule.CorLibTypes.Void, arrayTypeRef.ToTypeSig(), new ValueTypeSig(runtimeFieldHandle)), runtimeHelpers);
 				repl.Add(Instruction.Create(OpCodes.Call, stubModule.Import(initialzeArray)));
 				return repl.ToArray();
 			});
