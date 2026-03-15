@@ -52,6 +52,9 @@ namespace Confuser.Protections.AntiTamper {
 			writer.WriteBytes(Body);
 		}
 
+		/// <inheritdoc/>
+		public uint CalculateAlignment() => 0;
+
 		public void Serialize(uint token, uint key, byte[] fieldLayout) {
 			using (var ms = new MemoryStream()) {
 				var writer = new DataWriter(ms);
@@ -234,6 +237,9 @@ namespace Confuser.Protections.AntiTamper {
 				writer.WriteUInt32((length + entry.Value.Offset) >> 2);
 			}
 		}
+
+		/// <inheritdoc/>
+		public uint CalculateAlignment() => 0;
 
 		public void Add(uint token, JITMethodBody body) {
 			Debug.Assert(bodies.ContainsKey(token));
