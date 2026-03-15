@@ -13,7 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup Label="Nuget Dependencies">
-    <PackageReference Include="dnlib" Version="3.6.0" />
+    <PackageReference Include="dnlib" Version="4.5.0" />
     <PackageReference Include="Microsoft.DiaSymReader.Native" Version="1.7.0" />
     <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
     <PackageReference Include="System.Threading" Version="4.3.0" />
