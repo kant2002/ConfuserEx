@@ -12,6 +12,7 @@
     <File Path="ConfuserEx.Common.targets" />
     <File Path="Directory.Build.props" />
     <File Path="LICENSE.md" />
+    <File Path="nuget.config" />
     <File Path="README.md" />
     <File Path="version.json" />
   </Folder>
