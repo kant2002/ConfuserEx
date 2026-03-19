@@ -5,7 +5,12 @@ using dnlib.DotNet;
 
 namespace Confuser.Core.Services {
 	internal class RuntimeService : IRuntimeService {
+		private readonly ConfuserContext context;
 		ModuleDef rtModule;
+
+		public RuntimeService(ConfuserContext context) {
+			this.context = context;
+		}
 
 		/// <inheritdoc />
 		public TypeDef GetRuntimeType(string fullName) {
@@ -16,7 +21,9 @@ namespace Confuser.Core.Services {
 		}
 
 		private void LoadConfuserRuntimeModule() {
-			const string runtimeDllName = "runtime\\net472\\Confuser.Runtime.dll";
+			var entryPoint = this.context.Project[0].Resolve(this.context.Project.BaseDirectory);
+			var hasMscorlib = entryPoint.GetAssemblyRef("mscorlib") != null;
+			var runtimeDllName = hasMscorlib ? "runtime\\net472\\Confuser.Runtime.dll" : "runtime\\net8.0\\Confuser.Runtime.dll";
 
 			var module = typeof(RuntimeService).Assembly.ManifestModule;
 			string rtPath = runtimeDllName;
