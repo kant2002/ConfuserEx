@@ -1,0 +1,5 @@
+﻿<project outputDir="c:\obfuscation\output" baseDir="c:\obfuscation\input" debug="true" xmlns="http://confuser.codeplex.com">
+  <module path="c:\obfuscation\input\test.dll" />
+  <module path="c:\obfuscation\input\test2.dll" />
+  <probePath>c:\obfuscation\input\bin</probePath>
+</project>

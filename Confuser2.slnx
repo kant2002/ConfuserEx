@@ -57,6 +57,7 @@
     <Project Path="Tests/CompressorWithResx.Test/CompressorWithResx.Test.csproj" />
     <Project Path="Tests/CompressorWithResx/CompressorWithResx.csproj" />
     <Project Path="Tests/Confuser.Core.Test/Confuser.Core.Test.csproj" />
+    <Project Path="Tests/Confuser.MSBuild.Tasks.Tests/Confuser.MSBuild.Tasks.Tests.csproj" Id="a3483e80-7831-4877-bc65-e5b1738a9242" />
     <Project Path="Tests/Confuser.Renamer.Test/Confuser.Renamer.Test.csproj" />
     <Project Path="Tests/Confuser.UnitTest/Confuser.UnitTest.csproj" />
     <Project Path="Tests/IncorrectRedirectToGac.Test/IncorrectRedirectToGac.Test.csproj" />
