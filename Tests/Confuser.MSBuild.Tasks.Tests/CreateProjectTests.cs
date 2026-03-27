@@ -5,32 +5,41 @@ using System.Linq;
 using Confuser.UnitTest;
 using Microsoft.Build.Framework;
 using Moq;
+using VerifyTests;
+using VerifyXunit;
 using Xunit;
 
 namespace Confuser.MSBuild.Tasks.Tests {
-	public class CreateProjectTests {
+	public class CreateProjectTests : VerifyBase {
 		private readonly ITestOutputHelper outputHelper;
 		private Mock<IBuildEngine> buildEngine;
 		private List<BuildErrorEventArgs> errors;
 
-		public CreateProjectTests(ITestOutputHelper outputHelper) {
+		static CreateProjectTests() {
+			// To disable Visual Studio popping up on every test execution.
+			Environment.SetEnvironmentVariable("DiffEngine_Disabled", "true");
+			Environment.SetEnvironmentVariable("Verify_DisableClipboard", "true");
+
+			// To prevent from adding UTF-8 BOM to generated test data:
+			VerifierSettings.UseUtf8NoBom();
+		}
+
+		public CreateProjectTests(ITestOutputHelper outputHelper) : base() {
 			this.outputHelper = outputHelper ?? throw new ArgumentNullException(nameof(outputHelper));
 			this.buildEngine = new Mock<IBuildEngine>();
 			this.errors = new List<BuildErrorEventArgs>();
 			this.buildEngine.Setup(x => x.LogErrorEvent(It.IsAny<BuildErrorEventArgs>())).Callback<BuildErrorEventArgs>(e => errors.Add(e));
 		}
 
-
-
 		[Fact]
 		[Trait("Category", "MSBuildIntegration")]
-		public void CreateNewProjectIfNoSourceProject() {
+		public async System.Threading.Tasks.Task CreateNewProjectIfNoSourceProject() {
 			var assembly = new Mock<ITaskItem>();
 			assembly.SetupAllProperties();
 			assembly.Object.ItemSpec = $".\\bin\\debug\\test.dll";
 			var baseDirectory = new Mock<ITaskItem>();
 			baseDirectory.SetupAllProperties();
-			baseDirectory.Object.ItemSpec = $".";
+			baseDirectory.Object.ItemSpec = $"1.";
 			var resultProject = new Mock<ITaskItem>();
 			resultProject.SetupAllProperties();
 			resultProject.Object.ItemSpec = $"result-empty.crproj";
@@ -48,17 +57,12 @@ namespace Confuser.MSBuild.Tasks.Tests {
 			Assert.True(success);
 			Assert.Empty(errors);
 			Assert.True(File.Exists(task.ResultProject.ItemSpec));
-			Assert.Collection(
-				File.ReadLines(".\\Resources\\confuser-empty.expected.crproj"),
-				File.ReadLines(task.ResultProject.ItemSpec)
-					.Select<string, Action<string>>((string actual) => (string expected) => Assert.Equal(expected, actual))
-					.ToArray()
-			);
+			await Verify(File.ReadAllText(task.ResultProject.ItemSpec), GetSettings());
 		}
 
 		[Fact]
 		[Trait("Category", "MSBuildIntegration")]
-		public void BaseDirectoryOverridenTest() {
+		public async System.Threading.Tasks.Task BaseDirectoryOverridenTest() {
 			var sourceProject = new Mock<ITaskItem>();
 			sourceProject.SetupAllProperties();
 			sourceProject.Object.ItemSpec = $".\\Resources\\confuser.src.crproj";
@@ -86,11 +90,15 @@ namespace Confuser.MSBuild.Tasks.Tests {
 			Assert.True(success);
 			Assert.Empty(errors);
 			Assert.True(File.Exists(task.ResultProject.ItemSpec));
-			Assert.Collection(File.ReadLines(task.ResultProject.ItemSpec),
-				File.ReadLines(".\\Resources\\confuser.expected.crproj")
-					.Select<string, Action<string>>((string actual) => (string expected) => Assert.Equal(expected, actual))
-					.ToArray()
-			);
+			await Verify(File.ReadAllText(task.ResultProject.ItemSpec), GetSettings());
+		}
+
+		protected static VerifySettings GetSettings(params object[] parameters) {
+			var settings = new VerifySettings();
+			settings.UseDirectory("verified");
+			if (parameters.Length > 0)
+				settings.UseParameters(parameters);
+			return settings;
 		}
 	}
 }

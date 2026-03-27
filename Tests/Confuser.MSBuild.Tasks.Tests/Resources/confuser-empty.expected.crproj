@@ -1,3 +1,0 @@
-﻿<project outputDir="" baseDir=".\bin\debug" xmlns="http://confuser.codeplex.com">
-  <module path="test.dll" />
-</project>

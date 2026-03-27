@@ -7,12 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="Resources\confuser-empty.expected.crproj">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Resources\confuser.expected.crproj">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Resources\confuser.src.crproj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -21,15 +15,13 @@
   <ItemGroup Label="Nuget Dependencies">
     <PackageReference Include="Moq" Version="4.20.72" />
     <PackageReference Include="Microsoft.Build.Tasks.Core" Version="17.11.48" PrivateAssets="all" />
+    <PackageReference Include="Verify.XunitV3" Version="31.13.5" />
+    <PackageReference Include="xunit.v3" Version="3.2.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Confuser.UnitTest\Confuser.UnitTest.csproj" />
     <ProjectReference Include="..\..\Confuser.MSBuild.Tasks\Confuser.MSBuild.Tasks.csproj" />
-  </ItemGroup>
-
-  <ItemGroup Label="Nuget Dependencies">
-    <PackageReference Include="xunit.v3" Version="3.2.2" />
   </ItemGroup>
 
 </Project>
