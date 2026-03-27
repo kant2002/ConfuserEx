@@ -1,0 +1,5 @@
+<project outputDir="test/net472/obfuscated" baseDir="test/net472" debug="true" xmlns="http://confuser.codeplex.com">
+  <rule pattern="true" preset="maximum" inherit="false" />
+  <module path="Confuser.CLI.exe" />
+  <probePath>test/net472</probePath>
+</project>

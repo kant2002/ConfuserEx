@@ -4,9 +4,16 @@
     <TargetFramework>net472</TargetFramework>
     <IsPackable>false</IsPackable>
     <OutputType>Exe</OutputType>
+    <TestTargetProject>..\..\Confuser.CLI\Confuser.CLI.csproj</TestTargetProject>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="Resources\valid.crproj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\non-existing-file.crproj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\confuser.src.crproj">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -20,8 +27,43 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Confuser.CLI\Confuser.CLI.csproj" ReferenceOutputAssembly="false" />
     <ProjectReference Include="..\Confuser.UnitTest\Confuser.UnitTest.csproj" />
     <ProjectReference Include="..\..\Confuser.MSBuild.Tasks\Confuser.MSBuild.Tasks.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <!--<RuntimeProjectFramework Include="$(TargetFrameworks)" />-->
+    <RuntimeProjectFramework Include="net472" />
+  </ItemGroup>
+
+  <Target Name="CollectRuntimeOutputs" AfterTargets="Build">
+
+    <!-- Query each TFM output -->
+    <MSBuild Projects="$(TestTargetProject)" Targets="GetTargetPath" Properties="Configuration=$(Configuration);TargetFramework=%(RuntimeProjectFramework.Identity)" BuildInParallel="true">
+
+      <Output TaskParameter="TargetOutputs" ItemName="RuntimeOutputs" />
+
+    </MSBuild>
+
+    <ItemGroup>
+      <RuntimeOutputsNetFramework Include="@(RuntimeOutputs)" Condition="'%(TargetFrameworkVersion)' == '4.7.2'" />
+      <RuntimeOutputsNet Include="@(RuntimeOutputs)" Condition="'%(TargetFrameworkVersion)' == '8.0'" />
+    </ItemGroup>
+    <PropertyGroup>
+      <_RuntimeOutputsNetFramework>@(RuntimeOutputsNetFramework)</_RuntimeOutputsNetFramework>
+      <_RuntimeOutputsNet>@(RuntimeOutputsNet)</_RuntimeOutputsNet>
+    </PropertyGroup>
+    <ItemGroup>
+      <_RuntimeOutputsNetFrameworkFiles Include="$([System.IO.Path]::GetDirectoryName($(_RuntimeOutputsNetFramework)))\*.*"/>
+    </ItemGroup>
+    <Copy SourceFiles="@(_RuntimeOutputsNetFrameworkFiles)"
+          Condition="'$(_RuntimeOutputsNetFramework)' != ''"
+          DestinationFolder="$(OutDir)test\net472\" />
+    <Copy SourceFiles="$([System.IO.Path]::GetDirectoryName($(_RuntimeOutputsNet)))\*.*" 
+          Condition="'$(_RuntimeOutputsNet)' != ''"
+          DestinationFolder="$(OutDir)test\net8.0\" />
+
+  </Target>
 
 </Project>

@@ -1,0 +1,2 @@
+An IO error occurred, check if all input/output locations are readable/writable.
+Could not open file c:\obfuscation\input\test.dll for reading. Error: 00000003

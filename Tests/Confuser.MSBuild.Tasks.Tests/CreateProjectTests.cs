@@ -1,30 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using Confuser.UnitTest;
 using Microsoft.Build.Framework;
 using Moq;
-using VerifyTests;
-using VerifyXunit;
 using Xunit;
 
 namespace Confuser.MSBuild.Tasks.Tests {
-	public class CreateProjectTests : VerifyBase {
+	public class CreateProjectTests : VerifyTestBase {
 		private readonly ITestOutputHelper outputHelper;
 		private Mock<IBuildEngine> buildEngine;
 		private List<BuildErrorEventArgs> errors;
 
-		static CreateProjectTests() {
-			// To disable Visual Studio popping up on every test execution.
-			Environment.SetEnvironmentVariable("DiffEngine_Disabled", "true");
-			Environment.SetEnvironmentVariable("Verify_DisableClipboard", "true");
-
-			// To prevent from adding UTF-8 BOM to generated test data:
-			VerifierSettings.UseUtf8NoBom();
-		}
-
-		public CreateProjectTests(ITestOutputHelper outputHelper) : base() {
+		public CreateProjectTests(ITestOutputHelper outputHelper) {
 			this.outputHelper = outputHelper ?? throw new ArgumentNullException(nameof(outputHelper));
 			this.buildEngine = new Mock<IBuildEngine>();
 			this.errors = new List<BuildErrorEventArgs>();
@@ -91,14 +78,6 @@ namespace Confuser.MSBuild.Tasks.Tests {
 			Assert.Empty(errors);
 			Assert.True(File.Exists(task.ResultProject.ItemSpec));
 			await Verify(File.ReadAllText(task.ResultProject.ItemSpec), GetSettings());
-		}
-
-		protected static VerifySettings GetSettings(params object[] parameters) {
-			var settings = new VerifySettings();
-			settings.UseDirectory("verified");
-			if (parameters.Length > 0)
-				settings.UseParameters(parameters);
-			return settings;
 		}
 	}
 }
