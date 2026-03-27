@@ -78,7 +78,7 @@ namespace Confuser.Core {
 			context.Registry.RegisterService(_RandomServiceId, typeof(IRandomService), new RandomService(_context.Project.Seed));
 			context.Registry.RegisterService(_MarkerServiceId, typeof(IMarkerService), new MarkerService(context, marker));
 			context.Registry.RegisterService(_TraceServiceId, typeof(ITraceService), new TraceService());
-			context.Registry.RegisterService(_RuntimeServiceId, typeof(IRuntimeService), new RuntimeService());
+			context.Registry.RegisterService(_RuntimeServiceId, typeof(IRuntimeService), new RuntimeService(context));
 			context.Registry.RegisterService(_CompressionServiceId, typeof(ICompressionService), new CompressionService(context));
 			context.Registry.RegisterService(_APIStoreId, typeof(IAPIStore), new APIStore(context));
 		}

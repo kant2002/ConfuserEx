@@ -5,6 +5,7 @@
 
   <PropertyGroup Label="Assembly Settings">
     <TargetFrameworks>net472;net8.0</TargetFrameworks>
+    <RuntimeProject>..\Confuser.Runtime\Confuser.Runtime.csproj</RuntimeProject>
   </PropertyGroup>
 
   <PropertyGroup Label="Assembly Information">
@@ -12,16 +13,56 @@
     <Description>Protections and packers of ConfuserEx</Description>
   </PropertyGroup>
 
-  <ItemGroup Label="Nuget Dependencies">
-    <PackageReference Include="System.ValueTuple" Version="4.6.2" />
-  </ItemGroup>
-
   <ItemGroup Label="Project Dependencies">
     <ProjectReference Include="..\Confuser.DynCipher\Confuser.DynCipher.csproj" />
     <ProjectReference Include="..\Confuser.Renamer\Confuser.Renamer.csproj" />
-    <ProjectReference Include="..\Confuser.Runtime\Confuser.Runtime.csproj" Condition="'$(TargetFramework)' == 'net472'" />
+    <ProjectReference Include="..\Confuser.Runtime\Confuser.Runtime.csproj" ReferenceOutputAssembly="false" />  
   </ItemGroup>
 
   <Import Project="..\ConfuserEx.Common.targets" Condition="Exists('..\ConfuserEx.Common.targets')" />
 
-</Project>
+  <ItemGroup>
+    <RuntimeProjectFramework Include="$(TargetFrameworks)" />
+  </ItemGroup>
+
+  <Target Name="BuildRuntimeProject" BeforeTargets="Build">
+
+    <MSBuild Projects="$(RuntimeProject)" Targets="Build" 
+             Properties="Configuration=$(Configuration);TargetFramework=%(RuntimeProjectFramework.Identity)" 
+             BuildInParallel="true" />
+
+  </Target>
+
+  <Target Name="CollectRuntimeOutputs" DependsOnTargets="BuildRuntimeProject" AfterTargets="Build">
+
+    <!-- Query each TFM output -->
+    <MSBuild Projects="$(RuntimeProject)" Targets="GetTargetPath" Properties="Configuration=$(Configuration);TargetFramework=%(RuntimeProjectFramework.Identity)" BuildInParallel="true">
+
+      <Output TaskParameter="TargetOutputs" ItemName="RuntimeOutputs" />
+
+    </MSBuild>
+    <ItemGroup>
+      <RuntimeOutputsNetFramework Include="@(RuntimeOutputs)" Condition="'%(TargetFrameworkVersion)' == '4.7.2'" />
+      <RuntimeOutputsNet Include="@(RuntimeOutputs)" Condition="'%(TargetFrameworkVersion)' == '8.0'" />
+    </ItemGroup>
+    <Copy SourceFiles="@(RuntimeOutputsNetFramework)" DestinationFolder="$(OutDir)runtime\net472\" />
+    <Copy SourceFiles="@(RuntimeOutputsNet)" DestinationFolder="$(OutDir)runtime\net8.0\" />
+
+  </Target>
+
+  <Target Name="RegisterExtraFiles" DependsOnTargets="CollectRuntimeOutputs" BeforeTargets="GetCopyToOutputDirectoryItems">
+
+    <ItemGroup>
+      <ContentWithTargetPath Include="@(RuntimeOutputsNet)">
+        <TargetPath>runtime\net8.0\%(Filename)%(Extension)</TargetPath>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </ContentWithTargetPath>
+      <ContentWithTargetPath Include="@(RuntimeOutputsNetFramework)">
+        <TargetPath>runtime\net472\%(Filename)%(Extension)</TargetPath>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </ContentWithTargetPath>
+    </ItemGroup>
+
+  </Target>
+
+</Project>  
