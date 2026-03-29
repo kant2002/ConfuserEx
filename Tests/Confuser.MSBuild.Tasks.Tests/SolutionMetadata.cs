@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿// SPDX-FileCopyrightText: 2025 Cesium contributors <https://github.com/ForNeVeR/Cesium>
+//
+// SPDX-License-Identifier: MIT
+using System;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using TruePath;
 
 namespace Confuser.MSBuild.Tasks.Tests {

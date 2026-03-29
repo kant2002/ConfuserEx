@@ -1,11 +1,13 @@
-﻿using System;
+﻿// SPDX-FileCopyrightText: 2025 Cesium contributors <https://github.com/ForNeVeR/Cesium>
+//
+// SPDX-License-Identifier: MIT
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using TruePath;
@@ -13,7 +15,8 @@ using Xunit;
 using Xunit.Sdk;
 
 namespace Confuser.MSBuild.Tasks.Tests {
-	public class ProjectTestBase : IDisposable {
+	// Adapted from SdkTestBase.cs
+	public abstract class ProjectTestBase : IDisposable {
 		private readonly ITestOutputHelper _testOutputHelper;
 		private readonly string _temporaryPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
 		private readonly Dictionary<string, string> _dotNetEnvVars;
@@ -38,30 +41,6 @@ namespace Confuser.MSBuild.Tasks.Tests {
 			_testOutputHelper.WriteLine($"Local NuGet feed: {nupkgPath}.");
 			EmitNuGetConfig(NuGetConfigPath, nupkgPath);
 			//EmitGlobalJson(GlobalJsonPath, $"{SolutionMetadata.VersionPrefix}");
-		}
-
-		[Theory]
-		[InlineData("HelloWorld")]
-		public async Task Confuse_Exe_ShouldSucceed(string projectName) {
-			HashSet<string> expectedObjArtifacts =
-			[
-				$"{projectName}.dll"
-			];
-
-			var hostExeFile = RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? $"{projectName}.exe" : projectName;
-			HashSet<string> expectedBinArtifacts =
-			[
-				$"{projectName}.dll",
-			hostExeFile,
-			$"{projectName}.runtimeconfig.json",
-			$"{projectName}.deps.json",
-		];
-
-			var result = await ExecuteTargets(projectName, "Restore", "Build");
-
-			Assert.True(result.ExitCode == 0);
-			AssertIncludes(expectedObjArtifacts, result.IntermediateArtifacts.Select(a => a.FileName).ToList());
-			AssertIncludes(expectedBinArtifacts, result.OutputArtifacts.Select(a => a.FileName).ToList());
 		}
 		public static void AssertIncludes<T>(IReadOnlyCollection<T> expected, IReadOnlyCollection<T> all) {
 			var foundItems = all.Where(expected.Contains).ToList();

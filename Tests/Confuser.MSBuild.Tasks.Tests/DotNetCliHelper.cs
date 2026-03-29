@@ -1,4 +1,7 @@
-﻿using System;
+﻿// SPDX-FileCopyrightText: 2025 Cesium contributors <https://github.com/ForNeVeR/Cesium>
+//
+// SPDX-License-Identifier: MIT
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
