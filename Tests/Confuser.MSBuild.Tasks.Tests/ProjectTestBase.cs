@@ -22,7 +22,6 @@ namespace Confuser.MSBuild.Tasks.Tests {
 		private readonly Dictionary<string, string> _dotNetEnvVars;
 
 		private string NuGetConfigPath => Path.Combine(_temporaryPath, "NuGet.config");
-		private string GlobalJsonPath => Path.Combine(_temporaryPath, "global.json");
 
 		public ProjectTestBase(ITestOutputHelper testOutputHelper) {
 			_testOutputHelper = testOutputHelper;
@@ -44,8 +43,8 @@ namespace Confuser.MSBuild.Tasks.Tests {
 #endif
 			_testOutputHelper.WriteLine($"Local NuGet feed: {nupkgPath}.");
 			EmitNuGetConfig(NuGetConfigPath, nupkgPath);
-			//EmitGlobalJson(GlobalJsonPath, $"{SolutionMetadata.VersionPrefix}");
 		}
+
 		public static void AssertIncludes<T>(IReadOnlyCollection<T> expected, IReadOnlyCollection<T> all) {
 			var foundItems = all.Where(expected.Contains).ToList();
 			var remainingItems = expected.Except(foundItems).ToList();
@@ -64,16 +63,6 @@ namespace Confuser.MSBuild.Tasks.Tests {
             </configuration>
             """);
 		}
-
-		//private static void EmitGlobalJson(string globalJsonPath, string packageVersion) {
-		//	var actualGlobalJson = SolutionMetadata.SourceRoot / "global.json";
-		//	var globalConfig = JsonNode.Parse(File.ReadAllText(actualGlobalJson.Value))!;
-		//	globalConfig["msbuild-sdks"] = new JsonObject([new KeyValuePair<string, JsonNode?>("Cesium.Sdk", packageVersion)]);
-		//	var content = globalConfig.ToJsonString(new JsonSerializerOptions {
-		//		WriteIndented = true
-		//	});
-		//	File.WriteAllText(globalJsonPath, content);
-		//}
 
 		protected async Task<BuildResult> ExecuteTargets(string projectName, params string[] targets) {
 			var projectFile = $"{projectName}/{projectName}.csproj";
