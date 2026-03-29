@@ -37,7 +37,11 @@ namespace Confuser.MSBuild.Tasks.Tests {
 			_testOutputHelper.WriteLine($"Copying TestProjects to {_temporaryPath}...");
 			CopyDirectoryRecursive(testDataPath, _temporaryPath);
 
+#if DEBUG
 			var nupkgPath = (SolutionMetadata.SourceRoot / "artifacts/package/debug").Canonicalize();
+#else
+			var nupkgPath = (SolutionMetadata.SourceRoot / "artifacts/package/release").Canonicalize();
+#endif
 			_testOutputHelper.WriteLine($"Local NuGet feed: {nupkgPath}.");
 			EmitNuGetConfig(NuGetConfigPath, nupkgPath);
 			//EmitGlobalJson(GlobalJsonPath, $"{SolutionMetadata.VersionPrefix}");
