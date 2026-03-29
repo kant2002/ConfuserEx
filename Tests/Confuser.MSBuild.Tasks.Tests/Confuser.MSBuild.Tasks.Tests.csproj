@@ -1,10 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <IsPackable>false</IsPackable>
     <OutputType>Exe</OutputType>
+    <LangVersion>14.0</LangVersion>
     <TestTargetProject>..\..\Confuser.CLI\Confuser.CLI.csproj</TestTargetProject>
+    <IsTestProject>true</IsTestProject>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,8 +22,10 @@
   </ItemGroup>
 
   <ItemGroup Label="Nuget Dependencies">
+    <PackageReference Include="MedallionShell" Version="1.6.2" />
     <PackageReference Include="Moq" Version="4.20.72" />
     <PackageReference Include="Microsoft.Build.Tasks.Core" Version="17.11.48" PrivateAssets="all" />
+    <PackageReference Include="TruePath.SystemIo" Version="1.12.0" />
     <PackageReference Include="Verify.XunitV3" Version="31.13.5" />
     <PackageReference Include="xunit.v3" Version="3.2.2" />
   </ItemGroup>
@@ -30,6 +34,11 @@
     <ProjectReference Include="..\..\Confuser.CLI\Confuser.CLI.csproj" ReferenceOutputAssembly="false" />
     <ProjectReference Include="..\Confuser.UnitTest\Confuser.UnitTest.csproj" />
     <ProjectReference Include="..\..\Confuser.MSBuild.Tasks\Confuser.MSBuild.Tasks.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="TestProjects\**\*" CopyToOutputDirectory="Always" />
+    <Compile Remove="TestProjects\**\*" />
   </ItemGroup>
 
   <ItemGroup>
@@ -55,15 +64,19 @@
       <_RuntimeOutputsNet>@(RuntimeOutputsNet)</_RuntimeOutputsNet>
     </PropertyGroup>
     <ItemGroup>
-      <_RuntimeOutputsNetFrameworkFiles Include="$([System.IO.Path]::GetDirectoryName($(_RuntimeOutputsNetFramework)))\*.*"/>
+      <_RuntimeOutputsNetFrameworkFiles Include="$([System.IO.Path]::GetDirectoryName($(_RuntimeOutputsNetFramework)))\*.*" />
     </ItemGroup>
-    <Copy SourceFiles="@(_RuntimeOutputsNetFrameworkFiles)"
-          Condition="'$(_RuntimeOutputsNetFramework)' != ''"
-          DestinationFolder="$(OutDir)test\net472\" />
-    <Copy SourceFiles="$([System.IO.Path]::GetDirectoryName($(_RuntimeOutputsNet)))\*.*" 
-          Condition="'$(_RuntimeOutputsNet)' != ''"
-          DestinationFolder="$(OutDir)test\net8.0\" />
+    <Copy SourceFiles="@(_RuntimeOutputsNetFrameworkFiles)" Condition="'$(_RuntimeOutputsNetFramework)' != ''" DestinationFolder="$(OutDir)test\net472\" />
+    <Copy SourceFiles="$([System.IO.Path]::GetDirectoryName($(_RuntimeOutputsNet)))\*.*" Condition="'$(_RuntimeOutputsNet)' != ''" DestinationFolder="$(OutDir)test\net8.0\" />
 
   </Target>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="Confuser.MSBuild.Tasks.Tests.SolutionMetadataAttribute">
+      <_Parameter1>$(ArtifactsPath)\..</_Parameter1>
+      <_Parameter2>$(ArtifactsPath)</_Parameter2>
+      <_Parameter3>$(VersionPrefix)</_Parameter3>
+    </AssemblyAttribute>
+  </ItemGroup>
 
 </Project>

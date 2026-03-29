@@ -86,13 +86,17 @@ jobs:
       run: |
         vstest.console "artifacts/bin/*/release/*Test.exe" /Framework:.NETFramework,Version=v4.7.2
 
-    - name: Run tests via vstest.console .NET FW Part 2
+    - name: Run tests via vstest.console .NET FW - Part 2
       run: |
         vstest.console "artifacts/bin/*/release_net472/*Test.exe" /Framework:.NETFramework,Version=v4.7.2
 
     - name: Run tests via vstest.console .NET
       run: |
         vstest.console "artifacts/bin/*/release_net8.0/*Test.dll" /Framework:.NETCoreApp,Version=v8.0
+
+    - name: Run tests via vstest.console .NET - Part 2
+      run: |
+        vstest.console "artifacts/bin/*/release/*Tests.dll" /Framework:.NETCoreApp,Version=v8.0
 
     # Upload the package: https://github.com/marketplace/actions/upload-a-build-artifact
     - name: Upload build artifacts
