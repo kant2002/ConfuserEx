@@ -5,10 +5,11 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Obfuscate>true</Obfuscate>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Confuser.MSBuild" Version="*" />
+    <PackageReference Include="Confuser.MSBuild" Version="1.7.0-*" />
   </ItemGroup>
 
 </Project>
