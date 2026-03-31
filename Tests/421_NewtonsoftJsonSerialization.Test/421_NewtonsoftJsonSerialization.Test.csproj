@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net472;net8.0</TargetFrameworks>
+    <TargetFramework>net472</TargetFramework>
     <RootNamespace>NewtonsoftJsonSerialization.Test</RootNamespace>
     <IsPackable>false</IsPackable>
     <OutputType>Exe</OutputType>
