@@ -42,3 +42,4 @@ gh-pages/
 artifacts/
 /Confuser.Protections/runtime
 /Confuser.Protections/runtime
+*.binlog

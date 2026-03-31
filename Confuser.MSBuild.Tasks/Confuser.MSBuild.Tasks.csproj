@@ -19,18 +19,18 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <NoPackageAnalysis>true</NoPackageAnalysis>
     <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);IncludeConfuserDependencyFiles</TargetsForTfmSpecificContentInPackage>
-    <IncludeBuildOutput>false</IncludeBuildOutput>
   </PropertyGroup>
 
   <ItemGroup Label="Nuget Dependencies">
     <PackageReference Include="Microsoft.Build.Tasks.Core" Version="17.11.48" PrivateAssets="all" />
+    <PackageReference Include="dnlib" Version="4.5.0" GeneratePathProperty="true" />
   </ItemGroup>
 
   <ItemGroup Label="Project Dependencies">
     <ProjectReference Include="..\Confuser.Core\Confuser.Core.csproj" PrivateAssets="all" />
     <ProjectReference Include="..\Confuser.Protections\Confuser.Protections.csproj" PrivateAssets="all" />
     <ProjectReference Include="..\Confuser.Renamer\Confuser.Renamer.csproj" PrivateAssets="all" />
-    <ProjectReference Include="..\Confuser.Runtime\Confuser.Runtime.csproj" Condition="'$(TargetFramework)' == 'net472'" PrivateAssets="all" />
+    <ProjectReference Include="..\Confuser.Runtime\Confuser.Runtime.csproj" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>
@@ -44,12 +44,20 @@
     </IncludeConfuserDependencyFilesDependsOn>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Include="$(Pkgdnlib)\lib/net6.0/dnlib.dll" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
   <Target Name="IncludeConfuserDependencyFiles" DependsOnTargets="$(IncludeConfuserDependencyFilesDependsOn)" />
 
   <Target Name="IncludeConfuserDependencyFilesFramework" Condition="'$(TargetFramework)' == 'net472'">
+    <PropertyGroup>
+      <PTEST_11>$(BaseOutputPath)$(ArtifactsPivots)</PTEST_11>
+    </PropertyGroup>
     <ItemGroup>
-      <ConfuserNetFrameworkDependencies Include="$(BaseOutputPath)\$(Configuration)\net472\*.dll" />
-      <ConfuserNetFrameworkDependencies Include="$(BaseOutputPath)\$(Configuration)\net472\*.pdb" />
+      <ConfuserNetFrameworkDependencies Include="$(BaseOutputPath)$(ArtifactsPivots)\*.dll" />
+      <ConfuserNetFrameworkDependencies Include="$(BaseOutputPath)$(ArtifactsPivots)\*.pdb" />
+      <ConfuserNetFrameworkDependencies Include="$(BaseOutputPath)$(ArtifactsPivots)\runtime\*\*.dll" />
     </ItemGroup>
     <CreateItem Include="@(ConfuserNetFrameworkDependencies)" AdditionalMetadata="PackagePath=netframework">
       <Output TaskParameter="Include" ItemName="TfmSpecificPackageFile" />
@@ -58,10 +66,11 @@
 
   <Target Name="IncludeConfuserDependencyFilesStandard" Condition="'$(TargetFramework)' == 'net8.0'">
     <ItemGroup>
-      <ConfuserNetDependencies Include="$(BaseOutputPath)\$(Configuration)\net8.0\*.dll" />
-      <ConfuserNetDependencies Include="$(BaseOutputPath)\$(Configuration)\net8.0\*.pdb" />
+      <ConfuserNetDependencies Include="$(BaseOutputPath)$(ArtifactsPivots)\*.dll" />
+      <ConfuserNetDependencies Include="$(BaseOutputPath)$(ArtifactsPivots)\*.pdb" />
+      <ConfuserNetDependencies Include="$(BaseOutputPath)$(ArtifactsPivots)\runtime\*\*.dll" />
     </ItemGroup>
-    <CreateItem Include="@(ConfuserNetStandardDependencies)" AdditionalMetadata="PackagePath=net">
+    <CreateItem Include="@(ConfuserNetDependencies)" AdditionalMetadata="PackagePath=net">
       <Output TaskParameter="Include" ItemName="TfmSpecificPackageFile" />
     </CreateItem>
   </Target>

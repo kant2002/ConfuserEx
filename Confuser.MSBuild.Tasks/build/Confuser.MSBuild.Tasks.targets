@@ -6,7 +6,7 @@
 
   <PropertyGroup>
     <ConfuserAssemblyPath Condition="'$(MSBuildRuntimeType)' == 'Full'">$(MSBuildThisFileDirectory)\..\netframework\</ConfuserAssemblyPath>
-    <ConfuserAssemblyPath Condition="'$(ConfuserAssemblyPath)' == ''">$(MSBuildThisFileDirectory)\..\netstandard\</ConfuserAssemblyPath>
+    <ConfuserAssemblyPath Condition="'$(ConfuserAssemblyPath)' == ''">$(MSBuildThisFileDirectory)\..\net\</ConfuserAssemblyPath>
   </PropertyGroup>
 
   <UsingTask TaskName="Confuser.MSBuild.Tasks.CreateProjectTask"
