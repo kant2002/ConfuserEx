@@ -30,7 +30,7 @@
     <ProjectReference Include="..\Confuser.Core\Confuser.Core.csproj" PrivateAssets="all" />
     <ProjectReference Include="..\Confuser.Protections\Confuser.Protections.csproj" PrivateAssets="all" />
     <ProjectReference Include="..\Confuser.Renamer\Confuser.Renamer.csproj" PrivateAssets="all" />
-    <ProjectReference Include="..\Confuser.Runtime\Confuser.Runtime.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\Confuser.Runtime\Confuser.Runtime.csproj" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
   <ItemGroup>
@@ -50,29 +50,79 @@
 
   <Target Name="IncludeConfuserDependencyFiles" DependsOnTargets="$(IncludeConfuserDependencyFilesDependsOn)" />
 
-  <Target Name="IncludeConfuserDependencyFilesFramework" Condition="'$(TargetFramework)' == 'net472'">
+  <Target Name="IncludeConfuserDependencyFilesFramework"
+          DependsOnTargets="CollectRuntimeOutputs"
+          Condition="'$(TargetFramework)' == 'net472'">
     <PropertyGroup>
       <PTEST_11>$(BaseOutputPath)$(ArtifactsPivots)</PTEST_11>
     </PropertyGroup>
     <ItemGroup>
-      <ConfuserNetFrameworkDependencies Include="$(BaseOutputPath)$(ArtifactsPivots)\*.dll" />
-      <ConfuserNetFrameworkDependencies Include="$(BaseOutputPath)$(ArtifactsPivots)\*.pdb" />
-      <ConfuserNetFrameworkDependencies Include="$(BaseOutputPath)$(ArtifactsPivots)\runtime\*\*.dll" />
+      <ConfuserNetFrameworkDependencies Include="$(BaseOutputPath)$(ArtifactsPivots)\*.dll" PackagePath="netframework" />
+      <ConfuserNetFrameworkDependencies Include="$(BaseOutputPath)$(ArtifactsPivots)\*.pdb" PackagePath="netframework" />
+      <ConfuserNetFrameworkDependencies Include="$(BaseOutputPath)$(ArtifactsPivots)\runtime\net8.0\*.dll" PackagePath="netframework\runtime\net8.0" />
+      <ConfuserNetFrameworkDependencies Include="$(BaseOutputPath)$(ArtifactsPivots)\runtime\net472\*.dll" PackagePath="netframework\runtime\net472" />
     </ItemGroup>
-    <CreateItem Include="@(ConfuserNetFrameworkDependencies)" AdditionalMetadata="PackagePath=netframework">
+    <CreateItem Include="@(ConfuserNetFrameworkDependencies)">
       <Output TaskParameter="Include" ItemName="TfmSpecificPackageFile" />
     </CreateItem>
   </Target>
 
-  <Target Name="IncludeConfuserDependencyFilesStandard" Condition="'$(TargetFramework)' == 'net8.0'">
+  <Target Name="IncludeConfuserDependencyFilesStandard" 
+          DependsOnTargets="CollectRuntimeOutputs"
+          Condition="'$(TargetFramework)' == 'net8.0'">
     <ItemGroup>
-      <ConfuserNetDependencies Include="$(BaseOutputPath)$(ArtifactsPivots)\*.dll" />
-      <ConfuserNetDependencies Include="$(BaseOutputPath)$(ArtifactsPivots)\*.pdb" />
-      <ConfuserNetDependencies Include="$(BaseOutputPath)$(ArtifactsPivots)\runtime\*\*.dll" />
+      <ConfuserNetDependencies Include="$(BaseOutputPath)$(ArtifactsPivots)\*.dll" PackagePath="net"/>
+      <ConfuserNetDependencies Include="$(BaseOutputPath)$(ArtifactsPivots)\*.pdb" PackagePath="net"/>
+      <ConfuserNetDependencies Include="$(BaseOutputPath)$(ArtifactsPivots)\runtime\net8.0\*.dll" PackagePath="net\runtime\net8.0"/>
+      <ConfuserNetDependencies Include="$(BaseOutputPath)$(ArtifactsPivots)\runtime\net472\*.dll" PackagePath="net\runtime\net472"/>
     </ItemGroup>
-    <CreateItem Include="@(ConfuserNetDependencies)" AdditionalMetadata="PackagePath=net">
+    <CreateItem Include="@(ConfuserNetDependencies)">
       <Output TaskParameter="Include" ItemName="TfmSpecificPackageFile" />
     </CreateItem>
+  </Target>
+
+  <ItemGroup>
+    <RuntimeProjectFramework Include="$(TargetFrameworks)" />
+  </ItemGroup>
+
+  <Target Name="BuildRuntimeProject" BeforeTargets="Build">
+
+    <MSBuild Projects="$(RuntimeProject)" Targets="Build"
+             Properties="Configuration=$(Configuration);TargetFramework=%(RuntimeProjectFramework.Identity)"
+             BuildInParallel="true" />
+
+  </Target>
+
+  <Target Name="CollectRuntimeOutputs" DependsOnTargets="BuildRuntimeProject" AfterTargets="Build">
+
+    <!-- Query each TFM output -->
+    <MSBuild Projects="$(RuntimeProject)" Targets="GetTargetPath" Properties="Configuration=$(Configuration);TargetFramework=%(RuntimeProjectFramework.Identity)" BuildInParallel="true">
+
+      <Output TaskParameter="TargetOutputs" ItemName="RuntimeOutputs" />
+
+    </MSBuild>
+    <ItemGroup>
+      <RuntimeOutputsNetFramework Include="@(RuntimeOutputs)" Condition="'%(TargetFrameworkVersion)' == '4.7.2'" />
+      <RuntimeOutputsNet Include="@(RuntimeOutputs)" Condition="'%(TargetFrameworkVersion)' == '8.0'" />
+    </ItemGroup>
+    <Copy SourceFiles="@(RuntimeOutputsNetFramework)" DestinationFolder="$(OutDir)runtime\net472\" />
+    <Copy SourceFiles="@(RuntimeOutputsNet)" DestinationFolder="$(OutDir)runtime\net8.0\" />
+
+  </Target>
+
+  <Target Name="RegisterExtraFiles" DependsOnTargets="CollectRuntimeOutputs" BeforeTargets="GetCopyToOutputDirectoryItems">
+
+    <ItemGroup>
+      <ContentWithTargetPath Include="@(RuntimeOutputsNet)">
+        <TargetPath>runtime\net8.0\%(Filename)%(Extension)</TargetPath>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </ContentWithTargetPath>
+      <ContentWithTargetPath Include="@(RuntimeOutputsNetFramework)">
+        <TargetPath>runtime\net472\%(Filename)%(Extension)</TargetPath>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </ContentWithTargetPath>
+    </ItemGroup>
+
   </Target>
 
   <Import Project="..\ConfuserEx.Common.targets" Condition="Exists('..\ConfuserEx.Common.targets')" />
