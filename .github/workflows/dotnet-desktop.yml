@@ -130,7 +130,7 @@ jobs:
       with:
         name: ConfuserEx
         path: |
-          artifacts\bin\ConfuserEx\${{ env.Configuration }}_net10.0
-          !artifacts\bin\ConfuserEx\${{ env.Configuration }}_net10.0\*.pdb
-          !artifacts\bin\ConfuserEx\${{ env.Configuration }}_net10.0\*.xml
+          artifacts\bin\ConfuserEx\${{ env.Configuration }}_net10.0-windows
+          !artifacts\bin\ConfuserEx\${{ env.Configuration }}_net10.0-windows\*.pdb
+          !artifacts\bin\ConfuserEx\${{ env.Configuration }}_net10.0-windows\*.xml
   
