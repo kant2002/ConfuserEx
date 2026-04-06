@@ -1,16 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+#if NET
+using System.Runtime.Loader;
+#endif
 using Confuser.Core;
 
 namespace ConfuserEx {
 	internal class ComponentDiscovery {
-		static void CrossDomainLoadComponents() {
+#if NETFRAMEWORK
+		static void CrossDomainLoadComponentsNetFramework() {
 			var ctx = (CrossDomainContext)AppDomain.CurrentDomain.GetData("ctx");
 			// Initialize the version resolver callback
 			ConfuserEngine.Version.ToString();
-
 			Assembly assembly = Assembly.LoadFile(ctx.PluginPath);
+			LoadComponentsFromAssembly(ctx, assembly);
+		}
+#endif
+		static void LoadComponentsFromAssembly(CrossDomainContext ctx, Assembly assembly) {
 			foreach (var module in assembly.GetLoadedModules())
 				foreach (var i in module.GetTypes()) {
 					if (i.IsAbstract || !PluginDiscovery.HasAccessibleDefConstructor(i))
@@ -29,10 +36,17 @@ namespace ConfuserEx {
 
 		public static void LoadComponents(IList<ConfuserComponent> protections, IList<ConfuserComponent> packers, string pluginPath) {
 			var ctx = new CrossDomainContext(protections, packers, pluginPath);
+#if NETFRAMEWORK
 			AppDomain appDomain = AppDomain.CreateDomain("");
 			appDomain.SetData("ctx", ctx);
-			appDomain.DoCallBack(CrossDomainLoadComponents);
+			appDomain.DoCallBack(CrossDomainLoadComponentsNetFramework);
 			AppDomain.Unload(appDomain);
+#else
+			AssemblyLoadContext loadContext = new AssemblyLoadContext("PluginDiscovery", true);
+			Assembly assembly = loadContext.LoadFromAssemblyPath(ctx.PluginPath);
+			LoadComponentsFromAssembly(ctx, assembly);
+			loadContext.Unload();
+#endif
 		}
 
 		public static void RemoveComponents(IList<ConfuserComponent> protections, IList<ConfuserComponent> packers, string pluginPath) {

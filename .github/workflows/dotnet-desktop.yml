@@ -98,15 +98,23 @@ jobs:
       run: |
         vstest.console "artifacts/bin/*/release/*Tests.dll" /Framework:.NETCoreApp,Version=v8.0
 
-    # Upload the package: https://github.com/marketplace/actions/upload-a-build-artifact
-    - name: Upload build artifacts
+    - name: Upload CLI .NET Framework build artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: ConfuserEx.CLI
+        name: ConfuserEx.CLI_fw
         path: |
-          artifacts\bin\Confuser.CLI\${{ env.Configuration }}_net*
-          !artifacts\bin\Confuser.CLI\${{ env.Configuration }}_net*\*.pdb
-          !artifacts\bin\Confuser.CLI\${{ env.Configuration }}_net*\*.xml
+          artifacts\bin\Confuser.CLI\${{ env.Configuration }}_net472
+          !artifacts\bin\Confuser.CLI\${{ env.Configuration }}_net472\*.pdb
+          !artifacts\bin\Confuser.CLI\${{ env.Configuration }}_net472\*.xml
+
+    - name: Upload CLI .NET build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: ConfuserEx.CLI_fw
+        path: |
+          artifacts\bin\Confuser.CLI\${{ env.Configuration }}_net10.0
+          !artifacts\bin\Confuser.CLI\${{ env.Configuration }}_net10.0\*.pdb
+          !artifacts\bin\Confuser.CLI\${{ env.Configuration }}_net10.0\*.xml
         
 
     # Upload the package: https://github.com/marketplace/actions/upload-a-build-artifact
