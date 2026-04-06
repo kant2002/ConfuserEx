@@ -116,14 +116,21 @@ jobs:
           !artifacts\bin\Confuser.CLI\${{ env.Configuration }}_net10.0\*.pdb
           !artifacts\bin\Confuser.CLI\${{ env.Configuration }}_net10.0\*.xml
         
-
-    # Upload the package: https://github.com/marketplace/actions/upload-a-build-artifact
-    - name: Upload build artifacts
+    - name: Upload UI FW build artifacts
       uses: actions/upload-artifact@v4
       with:
         name: ConfuserEx
         path: |
-          artifacts\bin\ConfuserEx\${{ env.Configuration }}_net*
-          !artifacts\bin\ConfuserEx\${{ env.Configuration }}_net*\*.pdb
-          !artifacts\bin\ConfuserEx\${{ env.Configuration }}_net*\*.xml
+          artifacts\bin\ConfuserEx\${{ env.Configuration }}_net472
+          !artifacts\bin\ConfuserEx\${{ env.Configuration }}_net472\*.pdb
+          !artifacts\bin\ConfuserEx\${{ env.Configuration }}_net472\*.
+        
+    - name: Upload UI .NET build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: ConfuserEx
+        path: |
+          artifacts\bin\ConfuserEx\${{ env.Configuration }}_net10.0
+          !artifacts\bin\ConfuserEx\${{ env.Configuration }}_net10.0\*.pdb
+          !artifacts\bin\ConfuserEx\${{ env.Configuration }}_net10.0\*.xml
   
