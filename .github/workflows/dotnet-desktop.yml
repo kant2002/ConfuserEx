@@ -110,7 +110,7 @@ jobs:
     - name: Upload CLI .NET build artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: ConfuserEx.CLI_fw
+        name: ConfuserEx.CLI_net
         path: |
           artifacts\bin\Confuser.CLI\${{ env.Configuration }}_net10.0
           !artifacts\bin\Confuser.CLI\${{ env.Configuration }}_net10.0\*.pdb
@@ -119,7 +119,7 @@ jobs:
     - name: Upload UI FW build artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: ConfuserEx
+        name: ConfuserEx_fw
         path: |
           artifacts\bin\ConfuserEx\${{ env.Configuration }}_net472
           !artifacts\bin\ConfuserEx\${{ env.Configuration }}_net472\*.pdb
@@ -128,7 +128,7 @@ jobs:
     - name: Upload UI .NET build artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: ConfuserEx
+        name: ConfuserEx_net
         path: |
           artifacts\bin\ConfuserEx\${{ env.Configuration }}_net10.0-windows
           !artifacts\bin\ConfuserEx\${{ env.Configuration }}_net10.0-windows\*.pdb
