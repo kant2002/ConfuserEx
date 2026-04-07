@@ -13,7 +13,11 @@ namespace Confuser.CLI {
 		static int Main(string[] args) {
 			ConsoleColor original = Console.ForegroundColor;
 			Console.ForegroundColor = ConsoleColor.White;
+#if NET
+			string originalTitle = OperatingSystem.IsWindows() ? Console.Title : "ConfuserEx";
+#else
 			string originalTitle = Console.Title;
+#endif
 			Console.Title = "ConfuserEx";
 			try {
 				bool noPause = false;

@@ -80,7 +80,9 @@ namespace Confuser.Runtime {
 		///     Tries to find the address of the <c>DebuggerRCThread</c> instance in memory
 		/// </summary>
 		/// <param name="info">The debugger info we need</param>
+#if NETFRAMEWORK
 		[HandleProcessCorruptedStateExceptions, SecurityCritical] // Req'd on .NET 4.0
+#endif
 		private static unsafe IntPtr FindDebuggerRCThreadAddress(Info info) {
 			uint pid = GetCurrentProcessId();
 

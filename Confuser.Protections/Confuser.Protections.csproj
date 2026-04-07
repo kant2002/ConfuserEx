@@ -5,6 +5,7 @@
 
   <PropertyGroup Label="Assembly Settings">
     <TargetFrameworks>net472;net8.0</TargetFrameworks>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <RuntimeProject>..\Confuser.Runtime\Confuser.Runtime.csproj</RuntimeProject>
   </PropertyGroup>
 

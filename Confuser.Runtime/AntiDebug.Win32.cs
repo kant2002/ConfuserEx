@@ -22,7 +22,6 @@ namespace Confuser.Runtime {
 
 		//https://stackoverflow.com/questions/394816/how-to-get-parent-process-in-net-in-managed-way
 
-		private static ParentProcessUtilities PPU;
 		public static Process GetParentProcess() {
 			return ParentProcessUtilities.GetParentProcess();
 		}

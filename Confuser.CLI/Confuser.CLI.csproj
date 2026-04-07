@@ -1,10 +1,12 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <Import Project="..\ConfuserEx.Common.props" Condition="Exists('..\ConfuserEx.Common.props')" />
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFrameworks>net472;net10.0</TargetFrameworks>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <PublishSingleFile Condition="'$(TargetFramework)' == 'net10.0'">true</PublishSingleFile>
   </PropertyGroup>
   
   <PropertyGroup Label="Assembly Information">

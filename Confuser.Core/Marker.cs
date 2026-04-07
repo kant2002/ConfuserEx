@@ -105,10 +105,9 @@ namespace Confuser.Core {
 				if (pass != null) //pfx
 				{
 					// http://stackoverflow.com/a/12196742/462805
-					var cert = new X509Certificate2();
-					cert.Import(path, pass, X509KeyStorageFlags.Exportable);
+					var cert = new X509Certificate2(path, pass, X509KeyStorageFlags.Exportable);
 
-					var rsa = cert.PrivateKey as RSACryptoServiceProvider;
+					var rsa = cert.GetRSAPrivateKey() as RSACryptoServiceProvider;
 					if (rsa == null)
 						throw new ArgumentException("RSA key does not present in the certificate.", "path");
 

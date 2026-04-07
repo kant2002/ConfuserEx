@@ -57,7 +57,9 @@ namespace Confuser.Runtime {
 		///     Returns <c>true</c> if a profiler was attached, is attaching or detaching.
 		/// </summary>
 		private static bool IsProfilerAttached {
+#if NETFRAMEWORK
 			[HandleProcessCorruptedStateExceptions, SecurityCritical] // Req'd on .NET 4.0
+#endif
 			get {
 				try {
 					if (profilerDetector == null)
@@ -73,7 +75,9 @@ namespace Confuser.Runtime {
 		///     Returns <c>true</c> if a profiler was attached, is attaching or detaching.
 		/// </summary>
 		private static bool WasProfilerAttached {
+#if NETFRAMEWORK
 			[HandleProcessCorruptedStateExceptions, SecurityCritical] // Req'd on .NET 4.0
+#endif
 			get {
 				try {
 					if (profilerDetector == null)
@@ -307,7 +311,9 @@ namespace Confuser.Runtime {
 				return result;
 			}
 
+#if NETFRAMEWORK
 			[HandleProcessCorruptedStateExceptions, SecurityCritical] // Req'd on .NET 4.0
+#endif
 			private unsafe bool TakeOwnershipOfNamedPipe() {
 				try {
 					if (CreateNamedPipe())
@@ -375,7 +381,9 @@ namespace Confuser.Runtime {
 				return CreateNamedPipe();
 			}
 
+#if NETFRAMEWORK
 			[HandleProcessCorruptedStateExceptions, SecurityCritical] // Req'd on .NET 4.0
+#endif
 			private static unsafe void FixTimeOutOption(IntPtr timeOutOptionAddr) {
 				if (timeOutOptionAddr == IntPtr.Zero)
 					return;
@@ -449,7 +457,9 @@ namespace Confuser.Runtime {
 			///     Finds the address of clr!ProfilingAPIAttachDetach::s_attachThreadingMode
 			/// </summary>
 			/// <returns>The address or <c>null</c> if none was found</returns>
+#if NETFRAMEWORK
 			[HandleProcessCorruptedStateExceptions, SecurityCritical] // Req'd on .NET 4.0
+#endif
 			private static unsafe IntPtr FindThreadingModeAddress() {
 				try {
 					// Find this code in clr!ProfilingAPIAttachServer::ExecutePipeRequests()
@@ -545,7 +555,9 @@ namespace Confuser.Runtime {
 			///     Finds the address of clr!EXTERNAL_ProfAPIMaxWaitForTriggerMs
 			/// </summary>
 			/// <returns>The address or <c>null</c> if none was found</returns>
-			[HandleProcessCorruptedStateExceptions, SecurityCritical] // Req'd on .NET 4.0
+#if NETFRAMEWORK
+		[HandleProcessCorruptedStateExceptions, SecurityCritical] // Req'd on .NET 4.0
+#endif
 			private static unsafe IntPtr FindTimeOutOptionAddress() {
 				try {
 					PEInfo peInfo = PEInfo.GetCLR();
@@ -624,7 +636,9 @@ namespace Confuser.Runtime {
 			///     Finds the attacher thread's thread proc and patches it so it returns immediately.
 			/// </summary>
 			/// <returns><c>true</c> if it was patched, <c>false</c> otherwise</returns>
-			[HandleProcessCorruptedStateExceptions, SecurityCritical] // Req'd on .NET 4.0
+#if NETFRAMEWORK
+		[HandleProcessCorruptedStateExceptions, SecurityCritical] // Req'd on .NET 4.0
+#endif
 			private unsafe bool PatchAttacherThreadProc() {
 				IntPtr threadProc = FindAttacherThreadProc();
 				if (threadProc == IntPtr.Zero)
@@ -657,7 +671,9 @@ namespace Confuser.Runtime {
 				return true;
 			}
 
+#if NETFRAMEWORK
 			[HandleProcessCorruptedStateExceptions, SecurityCritical] // Req'd on .NET 4.0
+#endif
 			private unsafe IntPtr FindAttacherThreadProc() {
 				try {
 					PEInfo peInfo = PEInfo.GetCLR();
@@ -741,7 +757,9 @@ namespace Confuser.Runtime {
 			/// <param name="codeEnd">End of code</param>
 			/// <param name="threadProc">Possible thread proc</param>
 			/// <returns><c>true</c> if it's probably the thread proc, <c>false</c> otherwise</returns>
-			[HandleProcessCorruptedStateExceptions, SecurityCritical] // Req'd on .NET 4.0
+#if NETFRAMEWORK
+		[HandleProcessCorruptedStateExceptions, SecurityCritical] // Req'd on .NET 4.0
+#endif
 			private static unsafe bool CheckThreadProc(byte* codeStart, byte* codeEnd, IntPtr threadProc) {
 				try {
 					var p = (byte*)threadProc;
@@ -765,7 +783,9 @@ namespace Confuser.Runtime {
 			///     by searching for the code that accesses the profiler status field.
 			/// </summary>
 			/// <returns><c>true</c> if it was found, <c>false</c> otherwise</returns>
-			[HandleProcessCorruptedStateExceptions, SecurityCritical] // Req'd on .NET 4.0
+#if NETFRAMEWORK
+		[HandleProcessCorruptedStateExceptions, SecurityCritical] // Req'd on .NET 4.0
+#endif
 			private unsafe bool FindProfilerControlBlock() {
 				// Record each hit here and pick the one with the most hits
 				var addrCounts = new Dictionary<IntPtr, int>();
