@@ -43,12 +43,12 @@ jobs:
         
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         fetch-depth: 0
 
     - name: Cache NuGet packages
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         path: |
           ~/.nuget/packages
@@ -59,7 +59,7 @@ jobs:
 
     # Install the .NET Core workload
     - name: Install .NET Core
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@v5
       with:
         dotnet-version: |
           6.0.x
@@ -68,7 +68,7 @@ jobs:
 
     # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
     - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v2
+      uses: microsoft/setup-msbuild@v3
       
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: Restore the application
@@ -99,7 +99,7 @@ jobs:
         vstest.console "artifacts/bin/*/release/*Tests.dll" /Framework:.NETCoreApp,Version=v8.0
 
     - name: Upload CLI .NET Framework build artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: ConfuserEx.CLI_fw
         path: |
@@ -108,7 +108,7 @@ jobs:
           !artifacts\bin\Confuser.CLI\${{ env.Configuration }}_net472\*.xml
 
     - name: Upload CLI .NET build artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: ConfuserEx.CLI_net
         path: |
@@ -117,7 +117,7 @@ jobs:
           !artifacts\bin\Confuser.CLI\${{ env.Configuration }}_net10.0\*.xml
         
     - name: Upload UI FW build artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: ConfuserEx_fw
         path: |
@@ -126,7 +126,7 @@ jobs:
           !artifacts\bin\ConfuserEx\${{ env.Configuration }}_net472\*.
         
     - name: Upload UI .NET build artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: ConfuserEx_net
         path: |
