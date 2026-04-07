@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Versioning;
 using System.Threading;
 using System.Threading.Tasks;
 using Confuser.Core.Project;
@@ -472,6 +473,9 @@ namespace Confuser.Core {
 			}
 		}
 
+#if NET
+		[SupportedOSPlatform("windows")]
+#endif
 		static IEnumerable<string> GetFrameworkVersions() {
 			// http://msdn.microsoft.com/en-us/library/hh925568.aspx
 
@@ -527,11 +531,13 @@ namespace Confuser.Core {
 
 			context.Logger.Error("---BEGIN DEBUG INFO---");
 
+#if NETFRAMEWORK
 			context.Logger.Error("Installed Framework Versions:");
 			foreach (string ver in GetFrameworkVersions()) {
 				context.Logger.ErrorFormat("    {0}", ver.Trim());
 			}
 			context.Logger.Error("");
+#endif
 
 			if (context.Resolver != null) {
 				context.Logger.Error("Cached assemblies:");
