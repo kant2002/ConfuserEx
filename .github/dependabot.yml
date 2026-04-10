@@ -9,7 +9,7 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-    target-branch: "master"
+    target-branch: "main"
     ignore:
       - dependency-name: "Microsoft.Build.Tasks.Core"
         versions: ["16.*"]
