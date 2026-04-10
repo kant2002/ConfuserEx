@@ -15,7 +15,10 @@
   </PropertyGroup>
 
   <ItemGroup Label="Nuget Dependencies">
-    <PackageReference Include="NDesk.Options.Core" Version="1.2.5" />
+    <PackageReference Include="NDesk.Options.Core" Version="1.2.8" />
+    <!-- NDesk.Options.Core is require this. -->
+    <PackageReference Include="AssemblyLoader" Version="1.2.3" />
+    <PackageReference Include="Ranges" Version="1.0.5" />
   </ItemGroup>
 
   <ItemGroup Label="Project Dependencies">
