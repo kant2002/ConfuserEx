@@ -6,8 +6,13 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using ConfuserEx.ViewModel;
+#if NET
+using CommunityToolkit.Mvvm.Input;
+using DragDropCommand = CommunityToolkit.Mvvm.Input.RelayCommand<System.Tuple<System.Windows.UIElement, System.Windows.IDataObject>>;
+#else
 using GalaSoft.MvvmLight.CommandWpf;
+#endif
+using ConfuserEx.ViewModel;
 
 namespace ConfuserEx {
 	public class FileDragDrop {
@@ -110,10 +115,11 @@ namespace ConfuserEx {
 			e.Handled = true;
 		}
 
-
+#if NETFRAMEWORK
 		class DragDropCommand : RelayCommand<Tuple<UIElement, IDataObject>> {
 			public DragDropCommand(Action<Tuple<UIElement, IDataObject>> execute, Func<Tuple<UIElement, IDataObject>, bool> canExecute)
 				: base(execute, canExecute) { }
 		}
+#endif
 	}
 }

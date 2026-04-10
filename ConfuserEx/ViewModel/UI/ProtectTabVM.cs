@@ -7,7 +7,11 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Confuser.Core;
 using Confuser.Core.Project;
+#if NET
+using CommunityToolkit.Mvvm.Input;
+#else
 using GalaSoft.MvvmLight.CommandWpf;
+#endif
 
 namespace ConfuserEx.ViewModel {
 	internal class ProtectTabVM : TabViewModel, ILogger {

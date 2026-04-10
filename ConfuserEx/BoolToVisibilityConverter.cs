@@ -11,7 +11,7 @@ namespace ConfuserEx {
 
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
 			Debug.Assert(value is bool);
-			Debug.Assert(targetType == typeof(Visibility));
+			Debug.Assert(targetType == typeof(Visibility) || targetType == typeof(Visibility?), $"Expected Visibility or Nullable<Visibility>, but {targetType} given.");
 			return (bool)value ? Visibility.Visible : Visibility.Collapsed;
 		}
 

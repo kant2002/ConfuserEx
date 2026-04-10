@@ -15,8 +15,9 @@
   </PropertyGroup>
 
   <ItemGroup Label="Nuget Dependencies">
-    <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
-    <PackageReference Include="Ookii.Dialogs.Wpf" Version="4.0.0" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" Condition="$(TargetFramework) != 'net472'" />
+    <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" Condition="$(TargetFramework) == 'net472'" />
+    <PackageReference Include="Ookii.Dialogs.Wpf" Version="5.0.1" />
   </ItemGroup>
   
   <ItemGroup Label="Project Dependencies">

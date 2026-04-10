@@ -6,7 +6,11 @@ using System.Windows;
 using System.Windows.Input;
 using Confuser.Core.Project;
 using ConfuserEx.Views;
+#if NET
+using CommunityToolkit.Mvvm.Input;
+#else
 using GalaSoft.MvvmLight.CommandWpf;
+#endif
 using Ookii.Dialogs.Wpf;
 
 namespace ConfuserEx.ViewModel {
