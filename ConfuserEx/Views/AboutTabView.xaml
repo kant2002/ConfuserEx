@@ -41,9 +41,9 @@
                     <Label>Developed by Martin Karing, open sourced under MIT license.</Label>
                     <Label>
                         <TextBlock>
-                            <Hyperlink NavigateUri="https://mkaring.github.io/ConfuserEx/"
+                            <Hyperlink NavigateUri="https://kant2002.github.io/ConfuserEx/"
                                        Command="{Binding LaunchBrowser}"
-                                       CommandParameter="https://mkaring.github.io/ConfuserEx/">
+                                       CommandParameter="https://kant2002.github.io/ConfuserEx/">
                                 Visit the project page for details.
                             </Hyperlink>
                         </TextBlock>
@@ -53,9 +53,9 @@
                     <Label>If you like it or find it useful,</Label>
                     <Label>
                         <TextBlock>
-                            <Hyperlink NavigateUri="https://mkaring.github.io/ConfuserEx/#donation"
+                            <Hyperlink NavigateUri="https://kant2002.github.io/ConfuserEx/#donation"
                                        Command="{Binding LaunchBrowser}"
-                                       CommandParameter="https://mkaring.github.io/ConfuserEx/#donation">
+                                       CommandParameter="https://kant2002.github.io/ConfuserEx/#donation">
                                 feel free to support the project by making a donation!
                             </Hyperlink>
                         </TextBlock>
