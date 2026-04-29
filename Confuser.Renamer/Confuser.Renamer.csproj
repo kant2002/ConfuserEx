@@ -7,12 +7,17 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <TargetFrameworks>net472;net8.0</TargetFrameworks>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <PropertyGroup Label="Assembly Information">
     <Title>ConfuserEx Renamer</Title>
     <Description>Renaming analysis of ConfuserEx</Description>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
 
   <ItemGroup>
     <Reference Include="System.Web" Condition="'$(TargetFramework)' == 'net472'" />

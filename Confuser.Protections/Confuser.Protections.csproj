@@ -8,6 +8,7 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <RuntimeProject>..\Confuser.Runtime\Confuser.Runtime.csproj</RuntimeProject>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);IncludeConfuserDependencyFiles</TargetsForTfmSpecificContentInPackage>
   </PropertyGroup>
 
@@ -15,6 +16,10 @@
     <Title>ConfuserEx Protections</Title>
     <Description>Protections and packers of ConfuserEx</Description>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
 
   <ItemGroup Label="Project Dependencies">
     <ProjectReference Include="..\Confuser.DynCipher\Confuser.DynCipher.csproj" />

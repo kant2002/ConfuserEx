@@ -7,12 +7,17 @@
     <TargetFrameworks>net472;net8.0</TargetFrameworks>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <PropertyGroup Label="Assembly Information">
     <Title>ConfuserEx Core</Title>
     <Description>Core framework of ConfuserEx</Description>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
 
   <ItemGroup Label="Nuget Dependencies">
     <PackageReference Include="dnlib" Version="4.5.0" />
