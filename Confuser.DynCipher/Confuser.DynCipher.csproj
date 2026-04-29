@@ -6,6 +6,7 @@
   <PropertyGroup Label="Assembly Settings">
     <TargetFrameworks>net472;net8.0</TargetFrameworks>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <PropertyGroup Label="Assembly Information">

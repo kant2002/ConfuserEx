@@ -6,7 +6,9 @@
   <PropertyGroup Label="Assembly Settings">
     <TargetFrameworks>net472;net8.0</TargetFrameworks>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <RuntimeProject>..\Confuser.Runtime\Confuser.Runtime.csproj</RuntimeProject>
+    <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);IncludeConfuserDependencyFiles</TargetsForTfmSpecificContentInPackage>
   </PropertyGroup>
 
   <PropertyGroup Label="Assembly Information">
@@ -25,6 +27,42 @@
   <ItemGroup>
     <RuntimeProjectFramework Include="$(TargetFrameworks)" />
   </ItemGroup>
+
+  <PropertyGroup>
+    <IncludeConfuserDependencyFilesDependsOn>
+      IncludeConfuserDependencyFilesFramework;
+      IncludeConfuserDependencyFilesStandard
+    </IncludeConfuserDependencyFilesDependsOn>
+  </PropertyGroup>
+
+  <Target Name="IncludeConfuserDependencyFiles" DependsOnTargets="$(IncludeConfuserDependencyFilesDependsOn)" />
+
+  <Target Name="IncludeConfuserDependencyFilesFramework"
+          DependsOnTargets="CollectRuntimeOutputs"
+          Condition="'$(TargetFramework)' == 'net472'">
+    <PropertyGroup>
+      <PTEST_11>$(BaseOutputPath)$(ArtifactsPivots)</PTEST_11>
+    </PropertyGroup>
+    <ItemGroup>
+      <ConfuserNetFrameworkDependencies Include="$(BaseOutputPath)$(ArtifactsPivots)\runtime\net8.0\*.dll" PackagePath="lib\net472\runtime\net8.0" />
+      <ConfuserNetFrameworkDependencies Include="$(BaseOutputPath)$(ArtifactsPivots)\runtime\net472\*.dll" PackagePath="lib\net472\runtime\net472" />
+    </ItemGroup>
+    <CreateItem Include="@(ConfuserNetFrameworkDependencies)">
+      <Output TaskParameter="Include" ItemName="TfmSpecificPackageFile" />
+    </CreateItem>
+  </Target>
+
+  <Target Name="IncludeConfuserDependencyFilesStandard"
+          DependsOnTargets="CollectRuntimeOutputs"
+          Condition="'$(TargetFramework)' == 'net8.0'">
+    <ItemGroup>
+      <ConfuserNetDependencies Include="$(BaseOutputPath)$(ArtifactsPivots)\runtime\net8.0\*.dll" PackagePath="lib\net8.0\runtime\net8.0"/>
+      <ConfuserNetDependencies Include="$(BaseOutputPath)$(ArtifactsPivots)\runtime\net472\*.dll" PackagePath="lib\net8.0\runtime\net472"/>
+    </ItemGroup>
+    <CreateItem Include="@(ConfuserNetDependencies)">
+      <Output TaskParameter="Include" ItemName="TfmSpecificPackageFile" />
+    </CreateItem>
+  </Target>
 
   <Target Name="BuildRuntimeProject" BeforeTargets="Build">
 
