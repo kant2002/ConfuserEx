@@ -2,6 +2,7 @@
   <PropertyGroup>
     <UseArtifactsOutput>true</UseArtifactsOutput>
     <!--<LangVersion>11.0</LangVersion>-->
+    <NoWarn>$(NoWarn);NU1702</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Label="Assembly Information">
