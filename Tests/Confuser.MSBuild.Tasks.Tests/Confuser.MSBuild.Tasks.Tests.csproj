@@ -31,7 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Confuser.CLI\Confuser.CLI.csproj" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\..\Confuser.CLI\Confuser.CLI.csproj" ReferenceOutputAssembly="false"  PrivateAssets="all"/>
     <ProjectReference Include="..\Confuser.UnitTest\Confuser.UnitTest.csproj" />
     <ProjectReference Include="..\..\Confuser.MSBuild.Tasks\Confuser.MSBuild.Tasks.csproj" />
   </ItemGroup>

@@ -24,7 +24,7 @@
   <ItemGroup Label="Project Dependencies">
     <ProjectReference Include="..\Confuser.DynCipher\Confuser.DynCipher.csproj" />
     <ProjectReference Include="..\Confuser.Renamer\Confuser.Renamer.csproj" />
-    <ProjectReference Include="..\Confuser.Runtime\Confuser.Runtime.csproj" ReferenceOutputAssembly="false" />  
+    <ProjectReference Include="..\Confuser.Runtime\Confuser.Runtime.csproj" ReferenceOutputAssembly="false" PrivateAssets="all" />  
   </ItemGroup>
 
   <Import Project="..\ConfuserEx.Common.targets" Condition="Exists('..\ConfuserEx.Common.targets')" />
@@ -61,8 +61,8 @@
           DependsOnTargets="CollectRuntimeOutputs"
           Condition="'$(TargetFramework)' == 'net8.0'">
     <ItemGroup>
-      <ConfuserNetDependencies Include="$(BaseOutputPath)$(ArtifactsPivots)\runtime\net8.0\*.dll" PackagePath="lib\net8.0\runtime\net8.0"/>
-      <ConfuserNetDependencies Include="$(BaseOutputPath)$(ArtifactsPivots)\runtime\net472\*.dll" PackagePath="lib\net8.0\runtime\net472"/>
+      <ConfuserNetDependencies Include="$(BaseOutputPath)$(ArtifactsPivots)\runtime\net8.0\*.dll" PackagePath="lib\net8.0\runtime\net8.0" />
+      <ConfuserNetDependencies Include="$(BaseOutputPath)$(ArtifactsPivots)\runtime\net472\*.dll" PackagePath="lib\net8.0\runtime\net472" />
     </ItemGroup>
     <CreateItem Include="@(ConfuserNetDependencies)">
       <Output TaskParameter="Include" ItemName="TfmSpecificPackageFile" />
@@ -71,9 +71,7 @@
 
   <Target Name="BuildRuntimeProject" BeforeTargets="Build">
 
-    <MSBuild Projects="$(RuntimeProject)" Targets="Build" 
-             Properties="Configuration=$(Configuration);TargetFramework=%(RuntimeProjectFramework.Identity)" 
-             BuildInParallel="true" />
+    <MSBuild Projects="$(RuntimeProject)" Targets="Build" Properties="Configuration=$(Configuration);TargetFramework=%(RuntimeProjectFramework.Identity)" BuildInParallel="true" />
 
   </Target>
 

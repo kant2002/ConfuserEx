@@ -30,7 +30,7 @@
     <ProjectReference Include="..\Confuser.Core\Confuser.Core.csproj" PrivateAssets="all" />
     <ProjectReference Include="..\Confuser.Protections\Confuser.Protections.csproj" PrivateAssets="all" />
     <ProjectReference Include="..\Confuser.Renamer\Confuser.Renamer.csproj" PrivateAssets="all" />
-    <ProjectReference Include="..\Confuser.Runtime\Confuser.Runtime.csproj" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\Confuser.Runtime\Confuser.Runtime.csproj" ReferenceOutputAssembly="false" PrivateAssets="all" />
   </ItemGroup>
 
   <ItemGroup>
