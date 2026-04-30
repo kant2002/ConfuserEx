@@ -45,6 +45,12 @@ namespace Confuser.Core {
 		}
 
 		/// <summary>
+		///     Gets the default module context to use for loading modules.
+		/// </summary>
+		/// <value>The default module context.</value>
+		public ModuleContext DefaultModuleContext => InternalResolver.DefaultModuleContext;
+
+		/// <summary>
 		///     Gets the assembly resolver.
 		/// </summary>
 		/// <value>The assembly resolver.</value>
