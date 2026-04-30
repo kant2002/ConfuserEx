@@ -84,10 +84,10 @@
   <Project Path="Confuser.Core/Confuser.Core.csproj" />
   <Project Path="Confuser.DynCipher/Confuser.DynCipher.csproj" />
   <Project Path="Confuser.MSBuild.Tasks/Confuser.MSBuild.Tasks.csproj" />
-  <Project Path="Confuser.Protections/Confuser.Protections.csproj" />
-  <Project Path="Confuser.Renamer/Confuser.Renamer.csproj" />
-  <Project Path="Confuser.Runtime/Confuser.Runtime.csproj">
+  <Project Path="Confuser.Protections/Confuser.Protections.csproj">
     <BuildDependency Project="Confuser.Core/Confuser.Core.csproj" />
   </Project>
+  <Project Path="Confuser.Renamer/Confuser.Renamer.csproj" />
+  <Project Path="Confuser.Runtime/Confuser.Runtime.csproj" />
   <Project Path="ConfuserEx/ConfuserEx.csproj" />
 </Solution>
