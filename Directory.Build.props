@@ -21,4 +21,9 @@
     <SourceLinkServerType>GitHub</SourceLinkServerType>
     <SourceLinkOriginUrl>$(RepositoryUrl)</SourceLinkOriginUrl>
   </PropertyGroup>
+
+  <ItemGroup>
+    <NuGetAuditSuppress Include="https://www.myget.org/F/dnlib-kant2002/api/v3/index.json" />
+  </ItemGroup>
+
 </Project>
