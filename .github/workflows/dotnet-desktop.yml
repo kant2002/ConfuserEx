@@ -70,12 +70,12 @@ jobs:
       
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: Restore the application
-      run: msbuild ${{ env.SolutionPath }} /t:Restore /p:Configuration=${{ env.Configuration }} /p:Platform=x64 /v:m
+      run: msbuild ${{ env.SolutionPath }} /t:Restore /p:Configuration=${{ env.Configuration }} /p:Platform=x64 /v:m /bl:artifacts/logs/restore.binlog
       env:
         Configuration: Release
 
     - name: Build
-      run: msbuild ${{ env.SolutionPath }} /p:Configuration=${{ env.Configuration }} /p:Platform=x64 /v:m
+      run: msbuild ${{ env.SolutionPath }} /p:Configuration=${{ env.Configuration }} /p:Platform=x64 /v:m /bl:artifacts/logs/build.binlog
 
     - name: Setup VSTest
       uses: Malcolmnixon/Setup-VSTest@v4
@@ -131,6 +131,13 @@ jobs:
           artifacts\bin\ConfuserEx\${{ env.Configuration }}_net10.0-windows
           !artifacts\bin\ConfuserEx\${{ env.Configuration }}_net10.0-windows\*.pdb
           !artifacts\bin\ConfuserEx\${{ env.Configuration }}_net10.0-windows\*.xml
+        
+    - name: Upload Build log artifacts
+      uses: actions/upload-artifact@v6
+      with:
+        name: logs
+        path: |
+          artifacts\logs\*.binlog
 
     - name: push to NuGet
       # Only push to NuGet if we're building a tag (optional)
