@@ -10,7 +10,7 @@ namespace Confuser.Runtime {
 		static unsafe void Initialize() {
 			uint old;
 			Module module = typeof(AntiDump).Module;
-			var bas = (byte*)Marshal.GetHINSTANCE(module);
+			var bas = (byte*)GetHINSTANCE(module);
 			byte* ptr = bas + 0x3c;
 			byte* ptr2;
 			ptr = ptr2 = bas + *(uint*)ptr;
@@ -233,6 +233,11 @@ namespace Confuser.Runtime {
 					}
 				}
 			}
+		}
+
+		public static IntPtr GetHINSTANCE(Module module) {
+			var method = typeof(Marshal).GetMember("GetHINSTANCE", BindingFlags.Public | BindingFlags.Static)[0] as MethodInfo;
+			return (IntPtr)method.Invoke(null, new object[] { module });
 		}
 	}
 }

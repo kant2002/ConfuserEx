@@ -16,7 +16,7 @@ namespace Confuser.Runtime {
 			Module m = typeof(AntiTamperAnti).Module;
 			string n = m.FullyQualifiedName;
 			bool f = n.Length > 0 && n[0] == '<';
-			var b = (byte*)Marshal.GetHINSTANCE(m);
+			var b = (byte*)GetHINSTANCE(m);
 			byte* p = b + *(uint*)(b + 0x3c);
 			ushort s = *(ushort*)(p + 0x6);
 			ushort o = *(ushort*)(p + 0x14);
@@ -87,6 +87,11 @@ namespace Confuser.Runtime {
 
 				h++;
 			}
+		}
+
+		public static IntPtr GetHINSTANCE(Module module) {
+			var method = typeof(Marshal).GetMember("GetHINSTANCE", BindingFlags.Public | BindingFlags.Static)[0] as MethodInfo;
+			return (IntPtr)method.Invoke(null, new object[] { module });
 		}
 	}
 }
